@@ -3,7 +3,7 @@ name: new-feature
 description: 새 기능 PRD 문서를 생성한다. 다음 F-XXX ID를 자동 할당하고, 템플릿 기반으로 PRD를 작성하며, INDEX.md와 registry.md를 갱신한다.
 user-invocable: true
 argument-hint: "[기능명]"
-allowed-tools: Read Grep Glob Write Edit Bash(.claude/scripts/next-id.sh*)
+allowed-tools: Read Grep Glob Write Edit
 ---
 
 # /new-feature $ARGUMENTS
@@ -12,11 +12,13 @@ allowed-tools: Read Grep Glob Write Edit Bash(.claude/scripts/next-id.sh*)
 
 ## 현재 상태 확인
 
-다음 Feature ID: !`.claude/scripts/next-id.sh feature`
+스킬 시작 시 다음을 수행하세요:
+- Glob 도구로 `docs/01-product/features/F-*.md` 패턴을 검색하여 기존 Feature 파일 목록을 확인
+- 가장 높은 번호의 F-XXX에서 +1 하여 다음 ID를 결정 (예: F-001이 마지막이면 → F-002)
 
 ## 절차
 
-1. **다음 ID 확인**: 위 결과에서 다음 사용 가능한 `F-XXX` ID를 확인합니다.
+1. **다음 ID 확인**: 위에서 결정한 다음 사용 가능한 `F-XXX` ID를 사용합니다.
 
 2. **템플릿 로드**: `docs/99-templates/feature-template.md`를 읽습니다.
 

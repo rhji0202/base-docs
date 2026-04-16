@@ -3,7 +3,7 @@ name: plan-feature
 description: 기능 하나를 PRD부터 DB 스키마까지 6단계 Phase로 end-to-end 기획한다. 각 Phase 사이에 사용자 확인을 받으며, 원하는 Phase까지만 선택적으로 실행할 수 있다.
 user-invocable: true
 argument-hint: "[기능명]"
-allowed-tools: Read Grep Glob Write Edit Bash(.claude/scripts/next-id.sh*) Bash(.claude/scripts/check-broken-links.sh) Bash(grep *) Bash(find docs/ *) Bash(wc *)
+allowed-tools: Read Grep Glob Write Edit
 ---
 
 # /plan-feature $ARGUMENTS
@@ -12,7 +12,7 @@ allowed-tools: Read Grep Glob Write Edit Bash(.claude/scripts/next-id.sh*) Bash(
 
 ## 현재 상태
 
-다음 Feature ID: !`.claude/scripts/next-id.sh feature`
+스킬 시작 시 Glob 도구로 `docs/01-product/features/F-*.md`를 검색하여 기존 Feature 목록을 확인하고, 가장 높은 번호 +1로 다음 Feature ID를 결정하세요.
 
 ## Phase 구성
 

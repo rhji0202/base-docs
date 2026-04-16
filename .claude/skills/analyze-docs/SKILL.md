@@ -3,7 +3,7 @@ name: analyze-docs
 description: 기능 요청을 받으면 기존 docs/ 전체를 분석하여 실행 계획을 수립한다. vision, roadmap, ADR, 기존 도메인, tech-stack, security를 교차 검토하여 타당성, 블로커, 선행 작업, 리스크를 리포트한다. /plan-feature 실행 전 사전 분석 용도.
 user-invocable: true
 argument-hint: "[기능 요청]"
-allowed-tools: Read Grep Glob Bash(grep *) Bash(find docs/ *) Bash(.claude/scripts/next-id.sh*)
+allowed-tools: Read Grep Glob
 ---
 
 # /analyze-docs $ARGUMENTS
@@ -12,9 +12,11 @@ allowed-tools: Read Grep Glob Bash(grep *) Bash(find docs/ *) Bash(.claude/scrip
 
 ## 분석 범위
 
-```!
-echo "=== 프로젝트 현황 ===" && echo -n "Features: " && find docs/01-product/features -name "F-*.md" 2>/dev/null | wc -l && echo -n "Domains: " && find docs/02-domains -maxdepth 1 -type d 2>/dev/null | tail -n +2 | wc -l && echo -n "ADRs: " && find docs/07-decisions -name "ADR-*.md" 2>/dev/null | wc -l && echo -n "{UNSET} in tech-stack: " && grep -c "{UNSET}" docs/03-architecture/tech-stack.md 2>/dev/null && echo -n "Next Feature ID: " && bash .claude/scripts/next-id.sh feature
-```
+스킬 시작 시 다음 도구들로 프로젝트 현황을 파악하세요:
+- Glob으로 `docs/01-product/features/F-*.md` 검색 → Feature 수 파악 + 다음 ID 결정
+- Glob으로 `docs/02-domains/*/CLAUDE.md` 검색 → Domain 수 파악
+- Glob으로 `docs/07-decisions/ADR-*.md` 검색 → ADR 수 파악
+- Grep으로 `docs/03-architecture/tech-stack.md`에서 `{UNSET}` 검색 → 미결정 기술 스택 파악
 
 ## 분석 절차
 

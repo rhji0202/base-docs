@@ -2,7 +2,7 @@
 name: doc-status
 description: 문서 프로젝트의 전체 건강 상태를 리포트한다. {UNSET} 개수, completion 분포, 깨진 링크, 파일 크기 경고, Bootstrap Progress 현황을 한 눈에 보여준다.
 user-invocable: true
-allowed-tools: Read Grep Glob Bash(grep *) Bash(find docs/ *) Bash(wc *) Bash(.claude/scripts/check-broken-links.sh)
+allowed-tools: Read Grep Glob
 ---
 
 # /doc-status
@@ -12,26 +12,19 @@ allowed-tools: Read Grep Glob Bash(grep *) Bash(find docs/ *) Bash(wc *) Bash(.c
 ## 수집할 데이터
 
 ### 1. {UNSET} 현황
-```!
-grep -rc "{UNSET}" docs/ 2>/dev/null | grep -v ":0$" | sort -t: -k2 -rn
-```
+Grep 도구로 `docs/` 디렉토리에서 `{UNSET}` 패턴을 검색하세요 (output_mode: "count" 사용).
 
 ### 2. Completion 분포
-```!
-echo "=== skeleton ===" && grep -rl "completion: skeleton" docs/ 2>/dev/null | wc -l
-echo "=== partial ===" && grep -rl "completion: partial" docs/ 2>/dev/null | wc -l
-echo "=== complete ===" && grep -rl "completion: complete" docs/ 2>/dev/null | wc -l
-```
+Grep 도구로 `docs/` 디렉토리에서 각각 검색:
+- `completion: skeleton` → skeleton 수
+- `completion: partial` → partial 수
+- `completion: complete` → complete 수
 
 ### 3. 전체 문서 수
-```!
-find docs/ -name "*.md" -type f 2>/dev/null | wc -l
-```
+Glob 도구로 `docs/**/*.md` 패턴을 검색하여 전체 문서 수를 파악하세요.
 
 ### 4. 대형 파일 (400줄 초과)
-```!
-find docs/ -name "*.md" -type f -exec wc -l {} + 2>/dev/null | sort -rn | head -10
-```
+Glob으로 찾은 md 파일들 중 주요 파일을 Read 도구로 확인하여 400줄 초과 파일을 식별하세요.
 
 ## 리포트 형식
 

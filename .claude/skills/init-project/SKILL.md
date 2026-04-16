@@ -9,12 +9,19 @@ allowed-tools: Read Grep Glob Write Edit
 
 프로젝트 초기 설정을 시작합니다. 모든 `{UNSET}` 항목을 대화형으로 채웁니다.
 
-## 현재 상태
+## 현재 상태 확인
 
-미설정 항목 수: !`grep -rc "{UNSET}" CLAUDE.md docs/00-overview/vision.md docs/03-architecture/tech-stack.md docs/01-product/metrics.md docs/00-overview/glossary.md docs/01-product/personas/README.md 2>/dev/null | awk -F: '{sum+=$NF} END {print sum}'`
+스킬 시작 시 아래 작업을 먼저 수행하세요:
 
-Bootstrap Progress:
-!`grep -A 20 "## Bootstrap Progress" CLAUDE.md | grep "^\- \[" `
+1. Grep 도구로 `{UNSET}`을 다음 파일들에서 검색하여 미설정 항목 수를 파악:
+   - `CLAUDE.md`
+   - `docs/00-overview/vision.md`
+   - `docs/03-architecture/tech-stack.md`
+   - `docs/01-product/metrics.md`
+   - `docs/00-overview/glossary.md`
+   - `docs/01-product/personas/README.md`
+
+2. Read 도구로 `CLAUDE.md`의 `## Bootstrap Progress` 섹션을 읽어 현재 진행 상황 파악
 
 ## 설정 순서
 
