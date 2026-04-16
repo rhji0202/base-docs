@@ -1,0 +1,50 @@
+# Build outputs
+node_modules/
+dist/
+build/
+.next/
+.nuxt/
+out/
+target/
+__pycache__/
+*.pyc
+
+# Lockfiles (보통 큰 파일이고 직접 수정 안 함)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+poetry.lock
+Cargo.lock
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs / Coverage
+*.log
+logs/
+coverage/
+.nyc_output/
+
+# Env / Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Archive / Deprecated docs
+docs/_archive/
+
+# 자동 생성 문서
+docs/api/generated/
+
+# Large data files
+*.csv
+*.xlsx
+*.zip
+*.tar.gz
+*.sql.gz
+data/dumps/

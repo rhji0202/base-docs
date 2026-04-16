@@ -1,0 +1,33 @@
+graph TB
+    subgraph "Clients"
+        Web[Web App]
+        Mobile[Mobile App]
+    end
+
+    subgraph "Edge Layer"
+        CDN[CDN]
+        GW[API Gateway]
+    end
+
+    subgraph "Application Layer"
+        Auth[Identity Service]
+        Core[Core API]
+        Worker[Background Workers]
+    end
+
+    subgraph "Data Layer"
+        DB[(PostgreSQL)]
+        Cache[(Redis)]
+        Queue[(Message Queue)]
+    end
+
+    Web --> CDN
+    Web --> GW
+    Mobile --> GW
+    GW --> Auth
+    GW --> Core
+    Core --> DB
+    Core --> Cache
+    Core --> Queue
+    Queue --> Worker
+    Worker --> DB

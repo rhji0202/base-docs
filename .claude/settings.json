@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep *)",
+      "Bash(find docs/ *)",
+      "Bash(wc *)",
+      "Bash(cp docs/99-templates/*)",
+      "Bash(.claude/scripts/*)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(sudo *)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/scripts/validate-frontmatter.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

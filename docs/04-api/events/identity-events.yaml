@@ -1,0 +1,78 @@
+asyncapi: 3.0.0
+info:
+  title: Identity Domain Events
+  version: 1.0.0
+  description: Identity 도메인이 발행하는 이벤트
+
+channels:
+  user.registered:
+    address: identity.user.registered.v1
+    messages:
+      UserRegistered:
+        $ref: '#/components/messages/UserRegistered'
+
+  user.verified:
+    address: identity.user.verified.v1
+    messages:
+      UserVerified:
+        $ref: '#/components/messages/UserVerified'
+
+components:
+  messages:
+    UserRegistered:
+      name: UserRegistered
+      title: 사용자 회원가입 완료
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/UserRegisteredPayload'
+
+    UserVerified:
+      name: UserVerified
+      title: 이메일 인증 완료
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/UserVerifiedPayload'
+
+  schemas:
+    EventEnvelope:
+      type: object
+      required: [event_id, event_type, occurred_at, version, data]
+      properties:
+        event_id:
+          type: string
+          format: uuid
+        event_type:
+          type: string
+        occurred_at:
+          type: string
+          format: date-time
+        version:
+          type: string
+          example: "1.0"
+        trace_id:
+          type: string
+        data:
+          type: object
+
+    UserRegisteredPayload:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelope'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                user_id: { type: string }
+                email: { type: string, format: email }
+                registered_at: { type: string, format: date-time }
+
+    UserVerifiedPayload:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelope'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                user_id: { type: string }
+                verified_at: { type: string, format: date-time }

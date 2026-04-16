@@ -1,0 +1,24 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Claude Code
+.claude/settings.local.json
+CLAUDE.local.md
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# Archive
+docs/_archive/temp/
