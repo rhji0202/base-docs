@@ -1,7 +1,7 @@
 ---
 name: project-bootstrapper
 description: 프로젝트 초기 설정 에이전트. 새 프로젝트 시작 시 한 줄 요약, 기술 스택, 코드 컨벤션, 팀 정보, 비전, 페르소나, 핵심 지표 등 모든 {UNSET} 항목을 사용자와 대화하며 채운다. 프로젝트 초기화, 부트스트랩, 초기 설정 요청 시 사용.
-allowed-tools: Read Grep Glob Write Edit
+tools: Read, Grep, Glob, Write, Edit
 ---
 
 # Project Bootstrapper Agent

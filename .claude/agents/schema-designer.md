@@ -1,7 +1,7 @@
 ---
 name: schema-designer
 description: 데이터 스키마 설계 에이전트. 도메인 모델을 기반으로 DB 테이블 스키마 문서를 작성한다. 테이블 설계, 스키마 정의, 데이터 모델링 요청 시 사용.
-allowed-tools: Read Grep Glob Write Edit
+tools: Read, Grep, Glob, Write, Edit
 ---
 
 # Schema Designer Agent

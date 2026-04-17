@@ -1,7 +1,7 @@
 ---
 name: planner
 description: 새 기능 기획 에이전트. 사용자의 기능 요청을 받아 PRD(F-XXX) 문서를 작성한다. 기존 도메인, 아키텍처, API 맥락을 자동 로드하여 일관된 PRD를 생성. 기능 기획, PRD 작성, 기능 명세 요청 시 사용.
-allowed-tools: Read Grep Glob Write Edit Bash(.claude/scripts/next-id.sh*)
+tools: Read, Grep, Glob, Write, Edit, Bash(.claude/scripts/next-id.sh*)
 ---
 
 # Feature Planner Agent

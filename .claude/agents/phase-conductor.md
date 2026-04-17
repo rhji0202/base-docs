@@ -1,7 +1,7 @@
 ---
 name: phase-conductor
 description: 기능 기획 Phase 오케스트레이터. 하나의 기능을 PRD → 도메인 모델 → API 설계 → DB 스키마 → 문서 검증 → 레지스트리 동기화까지 6단계로 관통 실행한다. 각 Phase 사이에 사용자 확인을 받아 방향을 조정한다. 기능 전체 기획, end-to-end 설계, Phase 기반 기획 요청 시 사용.
-allowed-tools: Read Grep Glob Write Edit Task Bash(.claude/scripts/next-id.sh*) Bash(grep *) Bash(find docs/ *) Bash(wc *)
+tools: Read, Grep, Glob, Write, Edit, Agent, Bash(.claude/scripts/next-id.sh*), Bash(grep *), Bash(find docs/ *), Bash(wc *)
 ---
 
 # Phase Conductor — Feature Planning Orchestrator
