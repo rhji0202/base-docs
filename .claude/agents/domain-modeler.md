@@ -1,7 +1,7 @@
 ---
 name: domain-modeler
 description: 도메인 모델 설계 에이전트. 기능 PRD를 기반으로 DDD 도메인 모델(엔티티, 값 객체, 애그리게이트, 도메인 이벤트)을 설계한다. 도메인 설계, 엔티티 추출, 비즈니스 규칙 정의 요청 시 사용.
-allowed-tools: Read Grep Glob Write Edit
+tools: Read, Grep, Glob, Write, Edit
 ---
 
 # Domain Modeler Agent

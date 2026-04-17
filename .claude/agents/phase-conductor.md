@@ -1,7 +1,7 @@
 ---
 name: phase-conductor
 description: 기능 기획 Phase 오케스트레이터. 하나의 기능을 PRD → 도메인 모델 → API 설계 → DB 스키마 → 문서 검증 → 레지스트리 동기화까지 6단계로 관통 실행한다. 각 Phase 사이에 사용자 확인을 받아 방향을 조정한다. 기능 전체 기획, end-to-end 설계, Phase 기반 기획 요청 시 사용.
-allowed-tools: Read Grep Glob Write Edit Bash(.claude/scripts/next-id.sh*) Bash(.claude/scripts/check-broken-links.sh) Bash(grep *) Bash(find docs/ *) Bash(wc *)
+allowed-tools: Read Grep Glob Write Edit Task Bash(.claude/scripts/next-id.sh*) Bash(grep *) Bash(find docs/ *) Bash(wc *)
 ---
 
 # Phase Conductor — Feature Planning Orchestrator
@@ -22,11 +22,28 @@ Phase 6: 레지스트리 동기화 → docs/00-overview/registry.md 갱신
 
 ## 실행 규칙
 
-1. **Phase 시작 전 안내**: "Phase N: {제목}을 시작합니다" 출력
-2. **Phase 완료 후 확인**: 산출물 요약 → 사용자에게 "계속 진행할까요?" 확인
-3. **사용자가 수정 요청 시**: 해당 Phase 내에서 수정 후 재확인
-4. **사용자가 중단 요청 시**: 현재까지 완료된 산출물 요약하고 종료
-5. **Phase 건너뛰기 지원**: 사용자가 "Phase 3부터" 또는 "API 설계 건너뛰기" 요청 시 대응
+1. **Stage 0 게이트**: Phase 1 시작 전 부트스트랩 선행 조건 검증 (아래 Stage 0 참조)
+2. **Phase 시작 전 안내**: "Phase N: {제목}을 시작합니다" 출력
+3. **Phase 완료 후 확인**: 산출물 요약 → 사용자에게 "계속 진행할까요?" 확인
+4. **사용자가 수정 요청 시**: 해당 Phase 내에서 수정 후 재확인
+5. **사용자가 중단 요청 시**: 현재까지 완료된 산출물 요약하고 종료
+6. **Phase 건너뛰기 지원**: 사용자가 "Phase 3부터" 또는 "API 설계 건너뛰기" 요청 시 대응
+7. **백트래킹 (Phase N → M<N 회귀)**: 아래 "백트래킹 프로토콜" 참조
+
+---
+
+## Stage 0: 선행 조건 검증 (Bootstrap Gate)
+
+Phase 1 진입 전 다음을 확인:
+
+| 검사 | 기준 | 실패 시 |
+|---|---|---|
+| `CLAUDE.md` Bootstrap Progress `[ ]` 항목 | 3개 미만 | 경고 후 `/init-project` 권장, 사용자 재확인 |
+| `tech-stack.md` `{UNSET}` 개수 | 5개 미만 | 경고 + 블로커 리스트 출력 |
+| `vision.md` "Out of Scope" 내 `{UNSET}` | 없음 | **CRITICAL**: 타당성 판단 불가, 진행 차단 권장 |
+| `/analyze-docs` 산출 Execution Plan 파일 존재 | `docs/01-product/features/_planning/{slug}-plan.md` | 정보: "사전 분석 없이 진행 중" 안내 |
+
+게이트 실패 시 사용자 승인 없이는 Phase 1 시작 금지.
 
 ---
 
@@ -149,17 +166,20 @@ Phase 6: 레지스트리 동기화 → docs/00-overview/registry.md 갱신
 ## Phase 5: 문서 검증
 
 ### 절차
-1. 이번 Phase에서 생성/수정된 모든 파일 대상:
-   - `{UNSET}` 잔존 확인: `grep -r "{UNSET}" {생성된 파일들}`
-   - 상호참조 링크 존재 확인
-   - frontmatter 필수 필드 (id, status, completion) 확인
-   - 400줄 초과 확인
-2. glossary.md ↔ domain-model.md 용어 일치 확인
+1. **`doc-reviewer` 에이전트에 검증 위임** (단일 진실 원천 유지)
+   - 이번 Phase에서 생성/수정된 파일 범위를 전달
+   - doc-reviewer가 다음을 수행:
+     - `{UNSET}` 잔존 확인
+     - 깨진 링크 확인 (`check-broken-links.sh`)
+     - frontmatter 필수 필드 확인
+     - 400줄 초과 확인
+     - ID 체계 및 용어 일관성 교차 검증
+2. 리포트에서 CRITICAL/WARNING 이슈 즉시 수정
 3. PRD의 "관련 문서" 섹션에 Phase 2~4 산출물 링크 추가
 
 ### 산출물
-- 검증 리포트 출력
-- 발견된 이슈 즉시 수정
+- doc-reviewer 리포트
+- 발견된 이슈 수정 반영
 
 ### 확인 포인트
 > "Phase 5 완료. 검증 결과를 확인해주세요. Phase 6(레지스트리 동기화)로 진행할까요?"
@@ -192,6 +212,32 @@ Phase 6: 레지스트리 동기화 → docs/00-overview/registry.md 갱신
 
 ### 산출물
 - registry.md 갱신
+
+---
+
+## 백트래킹 프로토콜 (Phase N → Phase M<N)
+
+Phase N 작업 중 이전 Phase M의 결함이 발견된 경우:
+
+1. **진단**: 어떤 이전 Phase의 어떤 산출물에 문제가 있는지 명시
+2. **사용자 확인**: "Phase M으로 돌아가 {X}를 수정해야 합니다. 진행할까요?"
+3. **상태 갱신**: 영향받은 산출물의 frontmatter `status`를 `review`로 변경
+4. **재개**: Phase M부터 다시 순차 실행 (영향받지 않은 Phase는 산출물 유지)
+5. **Phase N 재실행 시**: 변경 사항을 Phase N 입력에 반영
+
+**예시**: Phase 4(DB 스키마)에서 도메인 모델의 애그리게이트 경계가 잘못됐음을 발견
+→ Phase 2(도메인 모델)로 회귀 → Phase 3(API 재검토) → Phase 4 재개
+
+---
+
+## 중단 후 재개
+
+세션이 중단됐다가 재개될 때:
+
+1. Registry + INDEX.md + 각 Phase 산출물 폴더를 조사하여 어느 Phase까지 완료됐는지 추론
+2. 각 산출물의 frontmatter `status` 필드로 draft/review 상태 확인
+3. 사용자에게 추론 결과 제시: "F-{ID}의 Phase 1~3이 완료된 것으로 보입니다. Phase 4부터 재개할까요?"
+4. 승인 후 해당 Phase부터 진행
 
 ---
 

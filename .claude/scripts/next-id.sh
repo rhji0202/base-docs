@@ -1,5 +1,5 @@
 #!/bin/bash
-# Usage: next-id.sh [feature|adr|rfc]
+# Usage: next-id.sh [feature|adr|rfc|bug]
 # Returns the next available ID for the given document type
 
 TYPE="${1:-feature}"
@@ -20,8 +20,13 @@ case "$TYPE" in
     DIR="docs/08-rfcs"
     PATTERN="RFC-([0-9]+)"
     ;;
+  bug)
+    PREFIX="BUG"
+    DIR="docs/06-operations/bugs"
+    PATTERN="BUG-([0-9]+)"
+    ;;
   *)
-    echo "Usage: $0 [feature|adr|rfc]" >&2
+    echo "Usage: $0 [feature|adr|rfc|bug]" >&2
     exit 1
     ;;
 esac

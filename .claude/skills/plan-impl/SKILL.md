@@ -39,15 +39,31 @@ registry.md에서 `$1`의 매핑을 확인하고, 관련 문서를 모두 읽습
 - PR 분할 계획
 
 ### 4. 산출물 생성
-`docs/01-product/features/$1-impl-plan.md` 파일 생성
+`docs/01-product/features/impl-plans/$1-impl-plan.md` 파일 생성
+(PRD 폴더와 분리하여 ID 검증/INDEX.md 규칙 충돌 방지)
 
 ## /plan-impl → 구현 시작 흐름
 
 ```
-/plan-impl F-002                     ← 구현 계획 수립
+/plan-impl F-002                                      ← 구현 계획 수립
     ↓
-F-002-impl-plan.md 생성               ← 구현 로드맵
+impl-plans/F-002-impl-plan.md 생성                     ← 구현 로드맵
     ↓
-Claude Code plan mode                 ← impl-plan.md를 참조하여 코드 작성
-    "F-002-impl-plan.md를 읽고 Layer 1부터 구현 시작해줘"
+Claude Code plan mode                                  ← impl-plan.md를 참조하여 코드 작성
+    "impl-plans/F-002-impl-plan.md를 읽고 Layer 1부터 구현 시작해줘"
 ```
+
+## 구현 브리지 (산출 직후 출력할 것)
+
+스킬 종료 시 사용자에게 **다음 단계 실행 가능한 프롬프트**를 복사용 코드 블록으로 제공:
+
+```
+다음 명령을 plan mode에서 실행하세요:
+
+  @docs/01-product/features/impl-plans/{F-XXX}-impl-plan.md 를 읽고
+  Layer 1(엔티티 + 마이그레이션)부터 순서대로 구현을 시작해주세요.
+  각 Layer 완료 시 검증 후 다음 Layer로 진행합니다.
+  PR 분할 계획을 따라 Layer별로 커밋을 분리하세요.
+```
+
+이렇게 하면 사용자가 그대로 복사해서 plan mode를 킥오프할 수 있습니다.

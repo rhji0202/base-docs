@@ -6,6 +6,8 @@ allowed-tools: Read Grep Glob Write Edit Bash(.claude/scripts/next-id.sh*)
 
 # Feature Planner Agent
 
+> **역할 경계**: `/new-feature` SKILL 또는 `phase-conductor` Phase 1에서 호출되는 internal agent. 단일 PRD 작성에만 집중 (도메인·API·스키마는 별도 에이전트 담당).
+
 당신은 대형 플랫폼의 기능 기획 전문가입니다. 사용자의 기능 요청을 체계적인 PRD로 변환합니다.
 
 ## 작업 절차

@@ -41,3 +41,27 @@ paths:
 - 기술 스택 변경 시 반드시 ADR 선행 작성
 - 금지/Deprecated 기술 목록 갱신
 - 분기 1회 정기 검토
+
+## ADR/RFC 트리거 (언제 만들어야 하는가)
+
+### ADR 필요 (되돌리기 어려운 결정)
+- `docs/03-architecture/tech-stack.md` 항목 신규/변경/제거
+- 아키텍처 패턴 변경 (Monolith → Microservices 등)
+- 보안 모델 변경 (인증/인가 방식)
+- 공용 DB 스키마의 breaking change
+- 외부 의존성 추가/제거 (DB, 메시지 큐, 3rd-party API)
+- 기존 도메인 경계 재편
+
+→ **감지**: `doc-reviewer`가 `tech-stack.md` diff 발견 시 동일 커밋에 ADR 없으면 **CRITICAL** 경고
+
+### RFC 필요 (토론이 필요한 제안)
+- Public API breaking change
+- 범분야(cross-cutting) 설계 제안 (예: 로깅 표준)
+- 여러 기능에 영향을 주는 공통 컴포넌트 신규 도입
+- 팀 외부와 합의가 필요한 변경
+
+### ADR 충돌 감지
+새 ADR 작성 시 `doc-reviewer` 또는 `docs-planner`가 기존 ADR과의 충돌을 검사:
+- 같은 `docs/07-decisions/`에서 동일 주제 ADR 검색
+- 충돌 시 기존 ADR을 `superseded by: ADR-XXX`로 표시
+- 충돌 없음 확인 후 `accepted` 전환

@@ -1,7 +1,7 @@
 ---
 name: impl-planner
 description: 구현 계획 에이전트. 기획 문서(PRD, 도메인 모델, API 스펙, DB 스키마)를 읽고 실제 코드 구현 계획을 수립한다. 파일 구조, 구현 순서, 패키지 의존성, 테스트 전략, PR 분할 계획을 산출한다. 구현 계획, 개발 계획, 코드 설계, 작업 분해 요청 시 사용.
-allowed-tools: Read Grep Glob Bash(grep *) Bash(find *) Bash(.claude/scripts/next-id.sh*)
+tools: Read, Grep, Glob, Write, Bash(grep *), Bash(find *), Bash(.claude/scripts/next-id.sh*)
 ---
 
 # Implementation Planner
@@ -117,11 +117,12 @@ testing.md 기반으로:
 
 ## 산출물
 
-`docs/01-product/features/F-XXX-impl-plan.md` 파일을 생성합니다:
+`docs/01-product/features/impl-plans/F-XXX-impl-plan.md` 파일을 생성합니다.
+(PRD(`F-XXX-{name}.md`)와 파일명이 섞이면 INDEX.md 목록·`id: 파일명 일치` 규칙과 혼선이 생기므로 `impl-plans/` 하위 폴더로 분리)
 
 ```markdown
 ---
-id: F-XXX-impl
+id: F-XXX-impl-plan
 title: "[기능명] 구현 계획"
 feature: F-XXX
 status: draft
@@ -158,10 +159,10 @@ created: YYYY-MM-DD
 - [ ] docs/ 문서 갱신 (completion: partial → complete)
 
 ## 관련 문서
-- **기획**: [PRD](./F-XXX-{name}.md)
-- **도메인**: [Domain Model](../../02-domains/{domain}/domain-model.md)
-- **API**: [API Spec](../../04-api/rest/{domain}.yaml)
-- **스키마**: [Schema](../../05-data/schemas/{table}.md)
+- **기획**: [PRD](../F-XXX-{name}.md)
+- **도메인**: [Domain Model](../../../02-domains/{domain}/domain-model.md)
+- **API**: [API Spec](../../../04-api/rest/{domain}.yaml)
+- **스키마**: [Schema](../../../05-data/schemas/{table}.md)
 ```
 
 ---

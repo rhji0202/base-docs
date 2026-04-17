@@ -10,9 +10,23 @@ allowed-tools: Read Grep Glob Write Edit
 
 기능 "$1"을 6단계 Phase로 end-to-end 기획합니다.
 
+## Stage 0: 선행 조건 검증 (Bootstrap Gate)
+
+**Phase 1 시작 전 반드시 수행:**
+
+1. Read로 `CLAUDE.md`를 읽고 "Bootstrap Progress" 섹션에서 미완료(`[ ]`) 항목을 카운트
+2. Grep으로 `docs/03-architecture/tech-stack.md`에서 `{UNSET}` 개수 확인
+3. Grep으로 `docs/00-overview/vision.md`에서 `{UNSET}` 개수 확인
+
+**판정:**
+- Bootstrap 미완료 항목이 3개 이상이거나 tech-stack {UNSET}이 5개 이상이면 → **경고 후 사용자에게 진행 의사 재확인**
+  > "⚠️ 프로젝트 부트스트랩이 충분치 않습니다. `/init-project`를 먼저 실행하는 것을 권장합니다. 그래도 진행할까요? (y/n)"
+- vision.md의 "Out of Scope"가 `{UNSET}`이면 → **CRITICAL 경고**: 타당성 판단 불가
+- 위 조건에 모두 해당 없으면 → 통과, Phase 1 진행
+
 ## 현재 상태
 
-스킬 시작 시 Glob 도구로 `docs/01-product/features/F-*.md`를 검색하여 기존 Feature 목록을 확인하고, 가장 높은 번호 +1로 다음 Feature ID를 결정하세요.
+Glob 도구로 `docs/01-product/features/F-*.md`를 검색하여 기존 Feature 목록을 확인하고, 가장 높은 번호 +1로 다음 Feature ID를 결정하세요.
 
 ## Phase 구성
 

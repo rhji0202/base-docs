@@ -72,13 +72,13 @@ docs/
 ---
 
 ## ID 체계 (Grep 친화적)
-- `F-XXX` : Feature (기능)
-- `ADR-XXX` : Architecture Decision Record
-- `RFC-XXX` : Request for Comments (제안)
-- `BUG-XXX` : 버그 추적
-- `EPIC-XX` : 대규모 작업 묶음
+- `F-XXX` : Feature (기능) — `docs/01-product/features/` (`/new-feature`)
+- `ADR-XXX` : Architecture Decision Record — `docs/07-decisions/` (`/new-adr`)
+- `RFC-XXX` : Request for Comments (제안) — `docs/08-rfcs/` (`/new-rfc`)
+- `BUG-XXX` : 버그 추적 — `docs/06-operations/bugs/` (`/new-bug`)
+- `EPIC-XX` : 대규모 작업 묶음 (경량 체계, 여러 F-XXX 묶음)
 
-예: `F-001`, `ADR-005`, `RFC-002`
+예: `F-001`, `ADR-005`, `RFC-002`, `BUG-001`
 
 ---
 

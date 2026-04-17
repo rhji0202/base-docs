@@ -2,12 +2,14 @@
 name: init-project
 description: 프로젝트 초기 설정을 시작한다. 한 줄 요약, 기술 스택, 코드 컨벤션, 팀 정보, 비전, 페르소나, 핵심 지표 등 모든 {UNSET} 항목을 대화형으로 채운다. 프로젝트 시작, 초기화, 부트스트랩 요청 시 사용.
 user-invocable: true
-allowed-tools: Read Grep Glob Write Edit
+allowed-tools: Read Grep Glob Write Edit Task
 ---
 
 # /init-project
 
 프로젝트 초기 설정을 시작합니다. 모든 `{UNSET}` 항목을 대화형으로 채웁니다.
+
+> **실행 방식**: 이 SKILL은 entrypoint입니다. 실제 상세 로직은 `project-bootstrapper` 에이전트에 위임할 수 있습니다 (Task 도구). SKILL 자체로도 충분히 수행 가능하지만, 복잡한 케이스(예: 다수 `{UNSET}` + 기술 스택 상호 의존)에서는 에이전트 호출을 권장합니다.
 
 ## 현재 상태 확인
 

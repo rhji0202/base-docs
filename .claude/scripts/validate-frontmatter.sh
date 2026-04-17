@@ -1,7 +1,8 @@
 #!/bin/bash
 # PostToolUse hook: validate frontmatter on markdown files in docs/
 # Receives JSON on stdin with tool_name and tool_input
-# Exit 0 = OK, Exit 2 = blocking error
+# Always exits 0 (warnings only, non-blocking).
+# To make this blocking, change the relevant `exit 0` lines to `exit 2`.
 
 # Read hook input from stdin
 INPUT=$(cat)

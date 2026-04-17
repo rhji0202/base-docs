@@ -3,7 +3,7 @@ name: analyze-docs
 description: 기능 요청을 받으면 기존 docs/ 전체를 분석하여 실행 계획을 수립한다. vision, roadmap, ADR, 기존 도메인, tech-stack, security를 교차 검토하여 타당성, 블로커, 선행 작업, 리스크를 리포트한다. /plan-feature 실행 전 사전 분석 용도.
 user-invocable: true
 argument-hint: "[기능 요청]"
-allowed-tools: Read Grep Glob
+allowed-tools: Read Grep Glob Write
 ---
 
 # /analyze-docs $ARGUMENTS
@@ -42,19 +42,40 @@ allowed-tools: Read Grep Glob
 - `docs/01-product/features/` — 모든 기존 기능 PRD
 - `docs/00-overview/registry.md` — 매핑 현황
 
-### 5. 실행 계획 출력
-분석 결과를 다음 형식으로 출력:
+### 5. 실행 계획 출력 + 파일 저장
+분석 결과를 다음 형식으로 출력하고, **파일로 저장**합니다:
+
+산출 위치: `docs/01-product/features/_planning/{slug}-plan.md`
+(slug = "$1"을 kebab-case로 변환, 예: "결제 시스템" → `payment-system`)
+
+frontmatter 예:
+```yaml
+---
+type: execution-plan
+subject: "$1"
+status: draft  # draft | consumed | superseded
+created: YYYY-MM-DD
+---
+```
+
+본문:
 - 타당성 판단 (Go / 조건부 Go / 블로커 있음)
-- 영향받는 기존 문서 목록
-- 선행 작업 체크리스트
+- 영향받는 기존 문서 목록 (구체적 파일:라인)
+- 선행 작업 체크리스트 (`- [ ]` 형식)
 - Phase별 주의사항
 - 리스크 테이블
 - 다음 단계 안내
 
+**주의**: 기존 파일이 있으면 사용자에게 덮어쓸지 확인.
+
 ## /analyze-docs → /plan-feature 흐름
 
 ```
-/analyze-docs "결제 시스템"     ← 지금 실행: 분석 + 계획
-    ↓ 선행 작업 완료 후
-/plan-feature "결제 시스템"     ← 다음 실행: PRD~스키마 생성
+/analyze-docs "결제 시스템"
+    ↓ _planning/payment-system-plan.md 저장
+    ↓ 선행 작업 완료
+/plan-feature "결제 시스템"
+    ↓ Stage 0에서 _planning/payment-system-plan.md 자동 로드
+    ↓ 선행 작업 체크리스트가 Bootstrap Gate 입력으로 사용됨
+    ↓ 완료 후 _planning 파일 frontmatter status=consumed 로 갱신
 ```

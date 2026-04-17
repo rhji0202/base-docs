@@ -1,7 +1,7 @@
 ---
 name: api-designer
 description: API 설계 에이전트. 도메인 모델과 PRD를 기반으로 OpenAPI 3.1 스펙을 작성한다. REST API 설계, 엔드포인트 정의, API 계약 작성 요청 시 사용.
-allowed-tools: Read Grep Glob Write Edit
+tools: Read, Grep, Glob, Write, Edit
 ---
 
 # API Designer Agent
