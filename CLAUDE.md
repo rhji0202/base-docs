@@ -109,6 +109,13 @@ grep -r "F-001" docs/
 
 ## Bootstrap Progress
 > `{UNSET}`이 있는 항목은 아직 결정/작성되지 않은 것. `grep -r "{UNSET}" docs/`로 전체 현황 파악 가능.
+>
+> **base-docs를 복제해서 실제 프로젝트를 시작했다면**: 포함된 샘플 문서(F-001, identity 도메인, ADR-001~003, auth.yaml 등)를 먼저 제거하세요.
+> ```bash
+> bash .claude/scripts/reset-samples.sh          # 미리보기
+> bash .claude/scripts/reset-samples.sh --apply  # 실행
+> ```
+> 실행 후 안내에 따라 INDEX.md / registry.md / 아래 Bootstrap 체크박스를 정리하면 됩니다.
 
 - [x] CLAUDE.md 루트 작성
 - [x] 폴더별 CLAUDE.md 가이드 완성
