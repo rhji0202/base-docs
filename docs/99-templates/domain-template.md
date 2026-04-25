@@ -1,7 +1,7 @@
 # [Domain Name] Domain
 
 > [이 도메인이 무엇을 책임지는가, 한두 문장]
-> 완성된 예시: `docs/02-domains/identity/` 참고
+> 새 도메인 스캐폴딩은 `/new-domain` 명령을 사용하세요.
 
 ## 도메인 폴더 생성 가이드
 

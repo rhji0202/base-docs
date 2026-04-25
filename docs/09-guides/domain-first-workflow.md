@@ -110,7 +110,7 @@ Identity ──user.registered──> Notification (환영 메일)
 - 여러 도메인 결제 → 재고 차감 → 배송 같은 흐름
 - 각 단계가 독립적으로 보상(compensation) 가능해야 함
 
-→ 자세한 패턴은 [ADR-001 Modular Monolith](../07-decisions/) 및 향후 ADR 참조.
+→ 자세한 패턴은 아키텍처 ADR(`docs/07-decisions/`)에서 확인하세요. (Modular Monolith / Microservices / Saga 등)
 
 ---
 

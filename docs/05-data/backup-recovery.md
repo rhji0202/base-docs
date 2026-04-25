@@ -6,7 +6,7 @@ last_verified: 2026-04-16
 # Backup & Recovery Policy
 
 > 데이터 백업 전략과 복구 절차.
-> ADR-002 (PostgreSQL 선택)의 후속 조치로 작성.
+> DB 선택 ADR이 작성되면 후속 조치로 이 문서를 채우세요.
 
 ## 백업 전략
 

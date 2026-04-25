@@ -54,12 +54,15 @@
 
 ## 비즈니스 상태값
 
-### 사용자 상태 (`user.status`)
-- `pending` : 이메일 인증 대기
-- `active` : 정상
-- `suspended` : 일시 정지
-- `deactivated` : 탈퇴 (Soft delete, `deleted_at` 컬럼 사용)
-<!-- 참고: domain-model.md, users.md 스키마와 용어 통일 (기존 "deleted" → "deactivated") -->
+> 도메인이 추가되면 핵심 엔티티의 상태값과 의미를 여기에 등록한다.
+> (예: `user.status`, `order.status`, `payment.status`)
+> 상태 전이 다이어그램은 `docs/03-architecture/diagrams/`에 `.mmd`로 작성하고 본 문서에 링크.
 
-### 거래 상태 (`transaction.status`)
-[상태 머신 정의는 별도 다이어그램 참조: `../03-architecture/diagrams/transaction-state.mmd`]
+### {UNSET: 엔티티명} 상태 (`{entity}.status`)
+- `{UNSET}` : {UNSET: 의미}
+
+<!-- 새 엔티티 상태가 추가되면 위 블록을 복제해서 작성한다. -->
+<!-- 도메인 모델 / 스키마 문서와 용어를 항상 통일할 것. -->
+
+### 상태 머신 다이어그램
+- _(상태 전이 다이어그램이 작성되면 `../03-architecture/diagrams/{entity}-state.mmd` 링크 추가)_

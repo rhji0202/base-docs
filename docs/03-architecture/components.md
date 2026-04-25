@@ -17,12 +17,12 @@ last_verified: 2026-04-16
 ```
 src/
 ├── domains/
-│   ├── identity/     # 인증·권한 (→ docs/02-domains/identity/)
-│   ├── {UNSET}/      # 다음 도메인
-│   └── shared/       # 도메인 간 공유 커널
-├── infrastructure/   # DB, 캐시, 큐 어댑터
-├── api/              # HTTP 라우터, 미들웨어
-└── config/           # 환경설정
+│   ├── {UNSET: 도메인1}/    # → docs/02-domains/{도메인1}/
+│   ├── {UNSET: 도메인2}/    # 추가 도메인
+│   └── shared/              # 도메인 간 공유 커널
+├── infrastructure/          # DB, 캐시, 큐 어댑터
+├── api/                     # HTTP 라우터, 미들웨어
+└── config/                  # 환경설정
 ```
 
 ## 도메인 모듈 간 의존 규칙
