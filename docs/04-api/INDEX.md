@@ -6,11 +6,11 @@
 <!-- AUTO:LIST:START -->
 ## REST API
 
-- [`auth.yaml`](./rest/auth.yaml)
+_(REST API 명세 없음)_
 
 ## 이벤트 스키마
 
-- [`identity-events.yaml`](./events/identity-events.yaml)
+_(이벤트 스키마 없음)_
 
 ## 공통 규약
 

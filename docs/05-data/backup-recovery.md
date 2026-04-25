@@ -32,6 +32,6 @@ last_verified: 2026-04-16
 - 마지막 복구 테스트: {UNSET}
 
 ## 관련 문서
-- **결정 근거**: [ADR-002 PostgreSQL](../07-decisions/ADR-002-postgresql.md)
+- **결정 근거**: _(관련 ADR 작성 필요)_
 - **스키마**: [Schemas](./schemas/)
 - **마이그레이션**: [Migration Policy](./migrations-policy.md)

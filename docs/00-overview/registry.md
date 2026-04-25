@@ -30,22 +30,7 @@ grep -r "F-001" docs/
 
 <!-- AUTO:FEATURES:START -->
 ```yaml
-F-001:
-  title: 사용자 인증
-  status: approved
-  domain: identity
-  feature_spec: docs/01-product/features/F-001-user-authentication.md
-  domain_docs:
-    - 02-domains/identity
-  api_specs:
-    - 04-api/rest/auth.yaml
-  event_schemas: []
-  data_schemas:
-    - 05-data/schemas/users.md
-  adrs:
-    - 07-decisions/ADR-003-auth-strategy.md
-  code_paths: []
-
+# (등록된 Feature 없음. docs/01-product/features/F-XXX-*.md 추가 후 재실행)
 ```
 <!-- AUTO:FEATURES:END -->
 
@@ -56,7 +41,7 @@ F-001:
 <!-- AUTO:DOMAINS:START -->
 | 도메인 | 관련 Features | 도메인 문서 | 상태 |
 |---|---|---|---|
-| identity | F-001 | `02-domains/identity/` | complete |
+| (도메인 없음) | — | — | — |
 <!-- AUTO:DOMAINS:END -->
 
 ---

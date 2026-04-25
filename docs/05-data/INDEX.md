@@ -6,7 +6,7 @@
 <!-- AUTO:LIST:START -->
 ## 스키마
 
-- [users 테이블](./schemas/users.md)
+_(스키마 없음)_
 
 ## 마이그레이션
 

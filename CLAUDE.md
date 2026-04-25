@@ -132,26 +132,33 @@ bash .claude/scripts/next-id.sh adr       # → ADR-004
 ---
 
 ## Bootstrap Progress
-> `{UNSET}`이 있는 항목은 아직 결정/작성되지 않은 것. `grep -r "{UNSET}" docs/`로 전체 현황 파악 가능.
+> base-docs는 **샘플 없는 깨끗한 템플릿**입니다. 복제 직후 바로 사용 시작하세요.
+> `{UNSET}` 항목은 아직 결정/작성되지 않은 것. `grep -r "{UNSET}" docs/`로 전체 현황 파악 가능.
 >
-> **base-docs를 복제해서 실제 프로젝트를 시작했다면**: 포함된 샘플 문서(F-001, identity 도메인, ADR-001~003, auth.yaml 등)를 먼저 제거하세요.
+> **시작 절차**:
 > ```bash
-> bash .claude/scripts/reset-samples.sh          # 미리보기
-> bash .claude/scripts/reset-samples.sh --apply  # 실행
+> /init-project        # 대화형: 한 줄 요약, tech-stack, vision, 페르소나, 컨벤션
+> /new-feature         # 첫 PRD (F-001) 작성
+> /new-adr             # 첫 ADR (예: 기술 스택) 작성
+> /new-domain          # 첫 도메인 폴더 스캐폴딩
+> bash .claude/scripts/lint-docs.sh   # 검증
 > ```
-> 실행 후 안내에 따라 INDEX.md / registry.md / 아래 Bootstrap 체크박스를 정리하면 됩니다.
 
-- [x] CLAUDE.md 루트 작성
-- [x] 폴더별 CLAUDE.md 가이드 완성
-- [x] 99-templates/ 모든 템플릿 작성
-- [x] 첫 번째 도메인 (identity) 완성
-- [x] 첫 번째 기능 (F-001 user-authentication) 완성
-- [x] 첫 번째 ADR 시리즈 (ADR-001~003) 작성
-- [ ] 한 줄 요약 작성
-- [ ] 프로젝트 현황 갱신
-- [ ] tech-stack.md 모든 행 결정
-- [ ] vision.md 핵심 내용 작성
-- [ ] glossary.md 모든 용어 정의 완료
+### 템플릿 인프라 (이미 구축됨)
+- [x] CLAUDE.md 루트
+- [x] 폴더별 CLAUDE.md 가이드
+- [x] 99-templates/ 모든 템플릿
+- [x] .claude/ 에이전트·스킬·규칙·자동화 스크립트
+- [x] 자동 동기화 훅 (registry.md, INDEX.md)
+
+### 신규 프로젝트가 채울 항목
+- [ ] 한 줄 요약
+- [ ] 프로젝트 현황 (단계, 스프린트)
+- [ ] tech-stack.md 모든 행 결정 (+ 각 결정마다 ADR)
+- [ ] vision.md 핵심 내용
+- [ ] glossary.md 용어 정의
 - [ ] 코드 컨벤션 확정
-- [ ] 팀/연락처 정보 입력
-- [x] .claude/ 에이전트 시스템 구축 (agents, skills, rules, scripts)
+- [ ] 팀/연락처 정보
+- [ ] 첫 도메인 추가
+- [ ] 첫 기능 PRD (F-001) 작성
+- [ ] 첫 ADR 작성

@@ -8,5 +8,5 @@
 
 | 도메인 | 상태 | 주요 문서 |
 |---|---|---|
-| [`identity`](./identity/) | complete | business-rules, domain-model, edge-cases |
+| _(도메인 없음)_ | — | — |
 <!-- AUTO:LIST:END -->

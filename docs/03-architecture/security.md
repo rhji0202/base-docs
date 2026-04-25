@@ -9,8 +9,8 @@ last_verified: 2026-04-16
 
 ## 인증 (Authentication)
 - 방식: JWT (Access Token + Refresh Token)
-- 결정 근거: [ADR-003](../07-decisions/ADR-003-auth-strategy.md)
-- 상세: [Identity Domain](../02-domains/identity/)
+- 결정 근거: _(관련 ADR 작성 필요)_
+- 상세: _(관련 도메인)_
 
 ## 인가 (Authorization)
 - 모델: {UNSET: RBAC / ABAC / 기타}
@@ -21,7 +21,7 @@ last_verified: 2026-04-16
 - 비밀번호 해싱: Argon2id
 - 전송 암호화: TLS 필수 (Plain HTTP 금지)
 - 저장 암호화: {UNSET}
-- PII 분류: [users.md 데이터 분류 참조](../05-data/schemas/users.md)
+- PII 분류: _(관련 스키마)_
 
 ## 네트워크 보안
 - {UNSET: 방화벽, VPC, WAF 등}
@@ -35,6 +35,6 @@ last_verified: 2026-04-16
 | CSRF | {UNSET} |
 
 ## 관련 문서
-- **인증 결정**: [ADR-003](../07-decisions/ADR-003-auth-strategy.md)
-- **사용자 데이터**: [Users Schema](../05-data/schemas/users.md)
+- **인증 결정**: _(관련 ADR 작성 필요)_
+- **사용자 데이터**: _(관련 스키마)_
 - **인프라 보안**: [Infrastructure](./infrastructure.md)

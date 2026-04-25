@@ -33,4 +33,4 @@ src/
 ## 관련 문서
 - **배포 단위**: [Containers](./containers.md) (C4 Level 2)
 - **도메인 상세**: [Domains](../02-domains/)
-- **아키텍처 결정**: [ADR-001 Monolith-first](../07-decisions/ADR-001-monolith-first.md)
+- **아키텍처 결정**: _(관련 ADR 작성 필요)_
