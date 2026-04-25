@@ -188,17 +188,38 @@ else
 fi
 echo
 
-# ---------- 6. broken-link report ----------
+# ---------- 6. clean sample references in non-sample docs ----------
 
-echo "=== 6단계: 깨진 링크 자동 검사 ==="
+echo "=== 6단계: 비-샘플 문서의 sample 링크 정리 ==="
+# These 4 docs are kept as structural examples but reference the deleted samples.
+# Replace markdown links to deleted samples with placeholder text so links don't break.
+SAMPLE_LINK_FILES=(
+  "docs/03-architecture/overview.md"
+  "docs/03-architecture/components.md"
+  "docs/03-architecture/security.md"
+  "docs/05-data/backup-recovery.md"
+)
+
+for f in "${SAMPLE_LINK_FILES[@]}"; do
+  [[ ! -f "$f" ]] && continue
+  edit_file "$f" 'sed -E "
+    s|\[[^]]*\]\([^)]*ADR-00[123]-[^)]*\.md\)|_(관련 ADR 작성 필요)_|g
+    s|\[[^]]*\]\([^)]*02-domains/identity[^)]*\)|_(관련 도메인)_|g
+    s|\[[^]]*\]\([^)]*05-data/schemas/users\.md\)|_(관련 스키마)_|g
+  "'
+  echo "  [갱신] $f"
+done
+echo
+
+# ---------- 7. broken-link report ----------
+
+echo "=== 7단계: 깨진 링크 자동 검사 ==="
 if [[ -x ".claude/scripts/check-broken-links.sh" ]]; then
   LINK_OUTPUT=$(bash .claude/scripts/check-broken-links.sh 2>&1 || true)
   if echo "$LINK_OUTPUT" | tail -1 | grep -q "^All links OK"; then
     echo "  [OK] 깨진 링크 없음"
   else
-    echo "  [경고] 샘플 참조로 인해 다음 링크가 깨졌습니다."
-    echo "         이 파일들은 원본 example로 남겨둔 architecture/data 문서가 sample을 참조하기 때문입니다."
-    echo "         직접 수정하세요 (또는 텍스트만 남기고 마크다운 링크 형식 제거):"
+    echo "  [경고] 정리 후에도 깨진 링크가 남아있습니다. 직접 수정하세요:"
     echo
     echo "$LINK_OUTPUT" | grep "^BROKEN" | sed 's/^/    /'
     echo
@@ -214,6 +235,6 @@ echo "=== 완료 ==="
 echo
 echo "다음 단계:"
 echo "  1. /init-project 명령으로 {UNSET} 항목을 채워가세요."
-echo "  2. 위 6단계에서 보고된 깨진 링크가 있다면 수동으로 수정하세요."
+echo "  2. 7단계에서 보고된 깨진 링크가 있다면 수동으로 수정하세요."
 echo "  3. 첫 기능 작성: /new-feature"
 echo "  4. 종합 검증: bash .claude/scripts/lint-docs.sh"
