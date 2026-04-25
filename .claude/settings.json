@@ -21,6 +21,11 @@
             "type": "command",
             "command": ".claude/scripts/validate-frontmatter.sh",
             "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": ".claude/scripts/auto-sync-registry.sh",
+            "timeout": 15
           }
         ]
       }

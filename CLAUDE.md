@@ -98,6 +98,30 @@ grep -l "상태.*진행중" docs/01-product/features/
 grep -r "F-001" docs/
 ```
 
+### 자동화 스크립트
+
+```bash
+# registry.md 자동 갱신 (Feature/도메인 변경 후)
+bash .claude/scripts/sync-registry.sh
+
+# 5개 폴더 INDEX.md 자동 갱신
+bash .claude/scripts/gen-indexes.sh
+
+# 종합 문서 건강 검사 (커밋 전)
+bash .claude/scripts/lint-docs.sh           # 전체
+bash .claude/scripts/lint-docs.sh --quick   # 동기화·링크만 (빠름)
+bash .claude/scripts/lint-docs.sh --strict  # CI: 경고도 실패로
+
+# 깨진 링크만 검사
+bash .claude/scripts/check-broken-links.sh
+
+# 다음 사용 가능 ID 확인
+bash .claude/scripts/next-id.sh feature   # → F-002
+bash .claude/scripts/next-id.sh adr       # → ADR-004
+```
+
+> 자세한 내용: [09-guides/automation.md](docs/09-guides/automation.md)
+
 ---
 
 ## 팀 / 연락처

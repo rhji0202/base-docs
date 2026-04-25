@@ -1,54 +1,59 @@
 ---
 name: sync-registry
-description: docs/ 전체를 스캔하여 registry.md를 자동 갱신한다. 새로 추가된 F-XXX 파일을 감지하고, 누락된 매핑을 보고하며, 도메인별 인덱스를 업데이트한다.
+description: docs/00-overview/registry.md를 docs/ 실제 파일과 자동 동기화한다. F-XXX 추가/수정·도메인 변경 시 호출하여 Feature Map과 도메인 인덱스를 갱신한다.
 user-invocable: true
-allowed-tools: Read Grep Glob Write Edit
+allowed-tools: Bash(.claude/scripts/sync-registry.sh*) Read
 ---
 
 # /sync-registry
 
-`docs/00-overview/registry.md`를 실제 파일 시스템과 동기화합니다.
+`docs/00-overview/registry.md`의 자동 생성 영역을 실제 파일 시스템과 동기화합니다.
 
-## 절차
+## 실행
 
-### 1. 현재 Feature 파일 스캔
-`docs/01-product/features/` 내 모든 `F-XXX-*.md` 파일을 찾습니다.
+```bash
+# 갱신 (Feature 추가/수정 후)
+bash .claude/scripts/sync-registry.sh
 
-### 2. Registry 비교
-`docs/00-overview/registry.md`를 읽어 등록된 Feature 목록과 실제 파일을 비교합니다.
-
-### 3. 누락 감지
-각 Feature에 대해 다음을 grep으로 확인합니다:
-- 도메인 문서: `grep -rl "F-XXX" docs/02-domains/`
-- API 스펙: `grep -rl "F-XXX" docs/04-api/`
-- 데이터 스키마: Feature PRD의 "관련 문서" 섹션에서 schema 링크 추출
-- ADR: `grep -rl "F-XXX" docs/07-decisions/`
-
-### 4. 도메인 인덱스 갱신
-`docs/02-domains/` 하위 폴더를 스캔하여 도메인별 인덱스 테이블을 업데이트합니다.
-- 각 도메인의 completion 상태 (skeleton / partial / complete)
-- 관련 Feature 매핑
-
-### 5. Registry 갱신
-발견된 새 매핑을 `docs/00-overview/registry.md`에 추가합니다.
-
-### 6. 리포트 출력
+# CI 검증 (등록 누락이 있으면 exit 1)
+bash .claude/scripts/sync-registry.sh --check
 ```
-## Registry Sync Report
 
-### New Features Found
-- F-002: {title} — added to registry
+## 동작
 
-### Updated Mappings
-- F-001: added data_schemas entry
+스크립트가 다음 영역을 재생성합니다:
 
-### Missing Documents
-- F-002: no domain docs found
-- F-002: no API spec found
+1. **`<!-- AUTO:FEATURES -->`** — `docs/01-product/features/F-XXX-*.md`를 모두 스캔하여 YAML Feature Map 생성
+   - frontmatter (`id`, `title`, `status`)에서 메타 추출
+   - PRD의 "관련 문서" 섹션의 마크다운 링크에서 도메인/API/스키마/ADR 경로 추출
+   - 추가로 `docs/07-decisions/`에서 F-XXX를 grep하여 역방향 ADR 참조 보강
+2. **`<!-- AUTO:DOMAINS -->`** — `docs/02-domains/*/` 폴더 상태 테이블
+   - completion 상태: `skeleton` (CLAUDE.md만) / `partial` ({UNSET} 잔존) / `complete`
+   - 해당 도메인을 참조하는 Feature ID 자동 매핑
+3. **`<!-- AUTO:UPDATED -->`** — 마지막 갱신 타임스탬프
 
-### Domain Index Updated
-| 도메인 | Features | 상태 |
-|---|---|---|
-| identity | F-001 | complete |
-| payment | F-002 | skeleton |
+## 사용 시점
+
+- **새 Feature 추가 후**: `/new-feature` 또는 직접 F-XXX 파일 생성
+- **Feature 상태 변경 후**: status `draft → approved → shipped`
+- **도메인 폴더 변경 후**: 새 도메인 추가, 도메인 문서 보완
+- **CI 단계**: `--check`로 PR이 registry를 업데이트했는지 검증
+
+## 마커가 없을 때
+
+`registry.md`에 `<!-- AUTO:* -->` 마커가 없으면 스크립트가 종료됩니다. 다음을 추가하세요:
+
+```markdown
+<!-- AUTO:FEATURES:START -->
+<!-- AUTO:FEATURES:END -->
+
+<!-- AUTO:DOMAINS:START -->
+<!-- AUTO:DOMAINS:END -->
+
+<!-- AUTO:UPDATED:START -->
+<!-- AUTO:UPDATED:END -->
 ```
+
+## 자동 실행
+
+`PostToolUse` 훅이 설정되어 있으면, `docs/01-product/features/F-*.md` 또는 `docs/02-domains/*/*.md` Edit/Write 후 자동 실행됩니다 (`.claude/settings.json` 참조).
