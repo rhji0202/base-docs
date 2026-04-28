@@ -1,11 +1,13 @@
 {
   "name": "tom",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "Documentation-driven planning toolkit: agents, commands, skills, and rules for PRD/ADR/Domain/API/Schema workflow.",
   "author": {
     "name": "rhji02",
     "email": "dev001@theonemind.kr"
   },
+  "homepage": "https://github.com/rhji0202/base-docs",
+  "repository": "https://github.com/rhji0202/base-docs",
   "keywords": [
     "documentation",
     "planning",
@@ -14,7 +16,6 @@
     "adr",
     "api-design"
   ],
-  "commands": "./.claude/commands/",
-  "agents": "./.claude/agents/",
-  "skills": "./.claude/skills/"
+  "commands": ["./commands/"],
+  "skills": ["./skills/"]
 }

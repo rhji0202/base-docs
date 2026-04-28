@@ -35,15 +35,25 @@ if [ -f .claude-plugin/marketplace.json ]; then
   cp .claude-plugin/marketplace.json "$STAGE/.claude-plugin/marketplace.json"
 fi
 
-# 2) Plugin content (NO .claude/ prefix inside zip)
-for d in agents commands skills rules scripts; do
-  if [ -d ".claude/$d" ]; then
+# 2) Component dirs (already at repo root, mirror them into the zip root)
+for d in agents commands skills; do
+  if [ -d "$d" ]; then
     echo "==> Copying $d/"
-    cp -r ".claude/$d" "$STAGE/$d"
+    cp -r "$d" "$STAGE/$d"
   fi
 done
 
-# 3) Settings -> hooks.json (plugins use hooks/hooks.json, not settings.json)
+# 3) Optional helpers carried inside .claude/ (rules, scripts) — keep as-is
+for d in rules scripts; do
+  if [ -d ".claude/$d" ]; then
+    echo "==> Copying .claude/$d/"
+    mkdir -p "$STAGE/.claude"
+    cp -r ".claude/$d" "$STAGE/.claude/$d"
+  fi
+done
+
+# 4) Settings -> hooks/hooks.json (auto-loaded by Claude Code v2.1+ by convention).
+#    Per PLUGIN_SCHEMA_NOTES, do NOT also declare "hooks" in plugin.json.
 if [ -f ".claude/settings.json" ]; then
   if command -v node >/dev/null 2>&1; then
     echo "==> Extracting hooks from settings.json"
