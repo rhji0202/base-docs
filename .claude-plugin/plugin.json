@@ -1,6 +1,6 @@
 {
-  "name": "base-docs-tools",
-  "version": "0.1.0",
+  "name": "tom",
+  "version": "0.2.0",
   "description": "Documentation-driven planning toolkit: agents, commands, skills, and rules for PRD/ADR/Domain/API/Schema workflow.",
   "author": {
     "name": "rhji02",

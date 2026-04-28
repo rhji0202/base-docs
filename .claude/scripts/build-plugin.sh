@@ -19,7 +19,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$ROOT"
 
-PLUGIN_NAME="base-docs-tools"
+PLUGIN_NAME="tom"
 VERSION="$(grep -oE '"version"\s*:\s*"[^"]+"' .claude-plugin/plugin.json | head -1 | sed -E 's/.*"([^"]+)"$/\1/')"
 OUT_DIR="dist"
 STAGE="$(mktemp -d -t plugin-build-XXXXXX)"
