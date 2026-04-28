@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Documentation-driven planning toolkit marketplace.",
-    "version": "0.3.0"
+    "version": "0.3.1"
   },
   "plugins": [
     {
@@ -16,7 +16,7 @@
         "repo": "rhji0202/base-docs"
       },
       "description": "Documentation-driven planning toolkit: agents, commands, skills, and rules for PRD/ADR/Domain/API/Schema workflow.",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "author": {
         "name": "rhji02",
         "email": "dev001@theonemind.kr"
