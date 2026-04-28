@@ -22,3 +22,6 @@ CLAUDE.local.md
 
 # Archive
 docs/_archive/temp/
+
+# Plugin build artifacts
+dist/

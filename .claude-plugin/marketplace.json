@@ -1,0 +1,37 @@
+{
+  "name": "base-docs-marketplace",
+  "owner": {
+    "name": "rhji02",
+    "email": "dev001@theonemind.kr"
+  },
+  "metadata": {
+    "description": "Documentation-driven planning toolkit marketplace.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "base-docs-tools",
+      "source": {
+        "source": "github",
+        "repo": "rhji0202/base-docs"
+      },
+      "description": "Documentation-driven planning toolkit: agents, commands, skills, and rules for PRD/ADR/Domain/API/Schema workflow.",
+      "version": "0.1.0",
+      "author": {
+        "name": "rhji02",
+        "email": "dev001@theonemind.kr"
+      },
+      "homepage": "https://github.com/rhji0202/base-docs",
+      "repository": "https://github.com/rhji0202/base-docs",
+      "category": "documentation",
+      "tags": [
+        "documentation",
+        "planning",
+        "ddd",
+        "prd",
+        "adr",
+        "api-design"
+      ]
+    }
+  ]
+}

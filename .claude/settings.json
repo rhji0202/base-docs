@@ -1,4 +1,15 @@
 {
+  "extraKnownMarketplaces": {
+    "base-docs-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "rhji0202/base-docs"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "base-docs-tools@base-docs-marketplace": true
+  },
   "permissions": {
     "allow": [
       "Bash(grep *)",
