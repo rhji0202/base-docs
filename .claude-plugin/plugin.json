@@ -1,6 +1,6 @@
 {
   "name": "tom",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Documentation-driven planning toolkit: agents, commands, skills, and rules for PRD/ADR/Domain/API/Schema workflow.",
   "author": {
     "name": "rhji02",
@@ -14,7 +14,7 @@
     "adr",
     "api-design"
   ],
-  "commands": ["./.claude/commands"],
-  "agents": ["./.claude/agents"],
-  "skills": ["./.claude/skills"]
+  "commands": "./.claude/commands/",
+  "agents": "./.claude/agents/",
+  "skills": "./.claude/skills/"
 }
