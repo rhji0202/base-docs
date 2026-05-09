@@ -4,7 +4,7 @@
 > 분산된 "관련 문서" 섹션의 **SSOT (Single Source of Truth)**.
 
 <!-- AUTO:UPDATED:START -->
-> 마지막 갱신: 2026-04-25 _(자동 생성)_
+> 마지막 갱신: 2026-05-09 _(자동 생성)_
 <!-- AUTO:UPDATED:END -->
 
 ## 사용법
