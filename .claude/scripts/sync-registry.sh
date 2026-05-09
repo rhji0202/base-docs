@@ -114,7 +114,7 @@ feature_domain() {
   extract_linked_paths "$file" \
     | grep -oE '^02-domains/[^/]+' \
     | head -1 \
-    | sed 's|02-domains/||'
+    | sed 's|02-domains/||' || true
 }
 
 # Given a feature ID, list F-XXX features that reference a given domain folder.
