@@ -15,7 +15,7 @@ tom 플러그인의 문서 템플릿과 자동화 자산을 **현재 프로젝�
 |---|---|---|
 | `docs/` | `./docs/` | 문서 템플릿 일괄 복사 |
 | `.claude/rules/` | `./.claude/rules/` | 코딩/리뷰/보안 규칙 |
-| `.claude/scripts/` | `./.claude/scripts/` | lint, sync-registry 등 |
+| `.claude/scripts/` | `./.claude/scripts/` | 플러그인 훅·포매터 등 |
 | `.claude/settings.json` | `./.claude/settings.json` | hooks/permissions |
 | `CLAUDE.md` | `./CLAUDE.md` | 루트 진입점 (있을 때만) |
 
@@ -103,9 +103,9 @@ ls .claude/scripts/*.sh 2>/dev/null | wc -l
 ✅ 설치 완료
 
 다음 단계:
-  1. CLAUDE.md 의 {UNSET} 항목 채우기 → /init-project
-  2. 첫 PRD 작성 → /new-feature
-  3. 검증 → bash .claude/scripts/lint-docs.sh
+  1. CLAUDE.md 의 {UNSET} 항목 채우기
+  2. 첫 기획 문서 작성 → docs/1-feat/_template.md 복사
+  3. 기획 확정 후 docs/2-web/ → docs/3-api/ 순으로 설계
 
 업데이트는 /update 명령으로 수행하세요 (rules, scripts, settings.json만 갱신).
 ```

@@ -14,11 +14,11 @@ The Feature Implementation Workflow describes the development pipeline: research
    - **Search for adaptable implementations:** Look for open-source projects that solve 80%+ of the problem and can be forked, ported, or wrapped.
    - Prefer adopting or porting a proven approach over writing net-new code when it meets the requirement.
 
-1. **Plan First**
-   - Use **planner** agent to create implementation plan
-   - Generate planning docs before coding: PRD, architecture, system_design, tech_doc, task_list
-   - Identify dependencies and risks
-   - Break down into phases
+1. **Plan First (문서 우선)**
+   - 구현 전에 `docs/` 3단계 문서를 작성한다: `1-feat/`(기획) → `2-web/`(프론트 설계) → `3-api/`(백엔드 설계)
+   - 각 폴더의 `_template.md`를 복사해 시작 (전용 스킬 없음, 템플릿 복사가 표준)
+   - 관련 있는 단계만 순서대로. UI 없는 기능은 `2-web` 생략 가능
+   - 의존성·리스크는 해당 설계 문서에 함께 기록
 
 2. **TDD Approach**
    - Use **tdd-guide** agent

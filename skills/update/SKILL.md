@@ -112,7 +112,7 @@ echo "settings: $([ -f .claude/settings.json ] && echo OK || echo MISSING)"
 settings.json을 직접 수정한 적이 있다면 백업($backup/settings.json)과
 비교하여 커스텀 설정을 다시 적용하세요.
 
-검증: bash .claude/scripts/lint-docs.sh
+검증: grep -r "{UNSET}" docs/   (미결정 항목 현황 확인)
 ```
 
 ## 주의사항

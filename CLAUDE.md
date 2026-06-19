@@ -1,55 +1,74 @@
 # 프로젝트 컨텍스트 (Claude Code 진입점)
 
-> 이 파일은 Claude Code가 자동으로 읽는 최상위 컨텍스트 파일입니다.
-> 프로젝트 시작 시 가장 먼저 갱신하세요.
+> Claude Code가 자동으로 읽는 최상위 컨텍스트. **프로젝트 고유값 + 핵심 원칙**만 둡니다.
+> 워크플로우 상세 규칙은 [docs/README.md](docs/README.md) · [.claude/rules/docs-workflow.md](.claude/rules/docs-workflow.md).
 
 ---
 
 ## 한 줄 요약
 {UNSET: 무엇을, 누구를 위해, 왜 만드는지 한 문장으로}
 
----
-
 ## 프로젝트 현황
-- **단계**: {UNSET: MVP / Beta / Production 중 선택}
-- **현재 스프린트**: {UNSET}
+- **단계**: {UNSET: MVP / Beta / Production}
 - **마지막 갱신**: {UNSET: YYYY-MM-DD}
 
 ---
 
-## 작업 시작 전 필수 참조
+## 작업 방식: 기획 → 프론트 → 백엔드
 
-| 작업 유형 | 먼저 읽을 문서 |
-|---|---|
-| 프로젝트 처음 합류 | `docs/00-overview/vision.md` → `docs/00-overview/glossary.md` |
-| 새 기능 구현 | `docs/01-product/features/F-XXX-*.md` |
-| API 작업 | `docs/04-api/rest/` 또는 `docs/04-api/events/` |
-| DB 스키마 변경 | `docs/05-data/schemas/` → 마이그레이션 정책 확인 |
-| 도메인 로직 | `docs/02-domains/{도메인}/CLAUDE.md` |
-| 아키텍처 변경 | `docs/03-architecture/` → ADR 작성 필수 |
-| 기술 선택 변경 | `docs/07-decisions/` 검토 후 새 ADR 작성 |
-| 배포/운영 이슈 | `docs/06-operations/runbooks/` |
+기능은 **같은 슬러그**의 문서로 세 단계를 순서대로 통과합니다. `docs/0-shared/`는 단계가 아니라 모든 단계가 참조하는 공통 기반입니다.
+
+```
+docs/1-feat/user-login.md  →  docs/2-web/user-login.md  →  docs/3-api/user-login.md
+      (무엇/왜)                    (어떻게 보이나)               (어떻게 동작하나)
+```
+
+| 단계 | 폴더 | 답하는 질문 |
+|---|---|---|
+| 기획 | `docs/1-feat/` | 무엇을, 누구를 위해, 왜 (요구사항·인수조건) |
+| 프론트 설계 | `docs/2-web/` | 어떻게 보이고 동작하나 (+ 필요한 API 정의) |
+| 백엔드 설계 | `docs/3-api/` | 데이터·로직·API를 어떻게 |
+
+> 슬러그 규칙·단계 스킵·경량 모드·비-웹 매핑 등 **상세 규칙은 [docs/README.md](docs/README.md)**.
 
 ---
 
-## 디렉토리 구조
+## 핵심 원칙 (절대 어기지 말 것)
+- ❌ 환경변수/시크릿 하드코딩 금지
+- ❌ 기획 없이 구현 시작 금지 — 모든 기능은 `docs/1-feat/` 문서가 선행
+- ❌ 테스트 없이 구현/머지 금지 — **기본 TDD** (RED → GREEN → REFACTOR), 인수조건이 테스트의 출발점 (예외·세부 → [common-testing.md](.claude/rules/common-testing.md))
+- ✅ 관련 있는 단계만 순서대로 (해당 없는 단계 스킵 가능, 역행 금지)
+- ✅ 공통(용어·API 규약·인증)은 `docs/0-shared/`에 한 번만, 기능 문서는 링크 참조
+- ✅ 문서가 SSOT — 설계 변경은 문서 먼저, 그다음 구현
+- ✅ 다이어그램은 Mermaid만, 미결정 값은 `{UNSET}`
 
-```
-docs/
-├── 00-overview/      # 프로젝트 비전, 용어, 로드맵
-├── 01-product/       # 기능 요구사항 (PRD), 사용자 스토리
-├── 02-domains/       # 도메인별 비즈니스 로직 명세
-├── 03-architecture/  # 시스템 아키텍처, 다이어그램
-├── 04-api/           # API 계약 (REST, GraphQL, 이벤트)
-├── 05-data/          # 데이터 모델, 스키마, 마이그레이션
-├── 06-operations/    # 배포, 모니터링, 런북
-├── 07-decisions/     # ADR (불변 결정 기록)
-├── 08-rfcs/          # 진행 중인 제안
-├── 09-guides/        # 개발 가이드, 컨벤션
-└── 99-templates/     # 모든 문서 템플릿
+---
+
+## 새 문서 만들기
+
+```bash
+# 기획부터 (파일명 = 영문 kebab 슬러그)
+cp docs/1-feat/_template.md docs/1-feat/user-login.md
+# 이어서 2-web, 3-api 를 같은 슬러그로
+
+find docs -name "user-login.md"   # 한 기능의 단계별 문서 모으기
+grep -r "{UNSET}" docs/            # 미결정 현황
 ```
 
 ---
+
+## 기술 스택
+
+| 영역 | 선택 | 비고 |
+|---|---|---|
+| 언어 | {UNSET} | |
+| 프론트엔드 | {UNSET: 프레임워크/라이브러리} | |
+| 백엔드 | {UNSET: 프레임워크/런타임} | |
+| 데이터베이스 | {UNSET} | |
+| 인프라/배포 | {UNSET: 호스팅, CI/CD} | |
+| 주요 외부 서비스 | {UNSET: 인증, 결제, 스토리지 등} | |
+
+> 기술 선택 근거는 해당 설계 문서에 함께 적습니다.
 
 ## 코드 컨벤션
 - **언어**: {UNSET}
@@ -59,71 +78,6 @@ docs/
 - **커밋**: {UNSET}
 - **브랜치**: {UNSET}
 
----
-
-## 핵심 원칙 (절대 어기지 말 것)
-- ❌ 환경변수/시크릿을 코드에 하드코딩 금지
-- ❌ `src/legacy/` 디렉토리 직접 수정 금지 (별도 마이그레이션 절차 따를 것)
-- ❌ 프로덕션 DB 스키마 변경은 마이그레이션 파일을 통해서만
-- ✅ 모든 신규 기능은 `docs/01-product/features/`에 PRD 선행 작성
-- ✅ 아키텍처 결정은 ADR로 기록
-- ✅ Public API 변경은 RFC 절차 필수
-
----
-
-## ID 체계 (Grep 친화적)
-- `F-XXX` : Feature (기능) — `docs/01-product/features/` (`/new-feature`)
-- `ADR-XXX` : Architecture Decision Record — `docs/07-decisions/` (`/new-adr`)
-- `RFC-XXX` : Request for Comments (제안) — `docs/08-rfcs/` (`/new-rfc`)
-- `BUG-XXX` : 버그 추적 — `docs/06-operations/bugs/` (`/new-bug`)
-- `EPIC-XX` : 대규모 작업 묶음 (경량 체계, 여러 F-XXX 묶음)
-
-예: `F-001`, `ADR-005`, `RFC-002`, `BUG-001`
-
----
-
-## 자주 쓰는 명령
-
-```bash
-# 새 기능 문서 만들기
-cp docs/99-templates/feature-template.md docs/01-product/features/F-XXX-name.md
-
-# 새 ADR 만들기
-cp docs/99-templates/adr-template.md docs/07-decisions/ADR-XXX-title.md
-
-# 모든 진행 중인 기능 찾기
-grep -l "상태.*진행중" docs/01-product/features/
-
-# 특정 기능 관련 모든 문서 찾기
-grep -r "F-001" docs/
-```
-
-### 자동화 스크립트
-
-```bash
-# registry.md 자동 갱신 (Feature/도메인 변경 후)
-bash .claude/scripts/sync-registry.sh
-
-# 5개 폴더 INDEX.md 자동 갱신
-bash .claude/scripts/gen-indexes.sh
-
-# 종합 문서 건강 검사 (커밋 전)
-bash .claude/scripts/lint-docs.sh           # 전체
-bash .claude/scripts/lint-docs.sh --quick   # 동기화·링크만 (빠름)
-bash .claude/scripts/lint-docs.sh --strict  # CI: 경고도 실패로
-
-# 깨진 링크만 검사
-bash .claude/scripts/check-broken-links.sh
-
-# 다음 사용 가능 ID 확인
-bash .claude/scripts/next-id.sh feature   # → F-002
-bash .claude/scripts/next-id.sh adr       # → ADR-004
-```
-
-> 자세한 내용: [09-guides/automation.md](docs/09-guides/automation.md)
-
----
-
 ## 팀 / 연락처
 - 프로젝트 오너: {UNSET}
 - 기술 리드: {UNSET}
@@ -131,34 +85,10 @@ bash .claude/scripts/next-id.sh adr       # → ADR-004
 
 ---
 
-## Bootstrap Progress
-> base-docs는 **샘플 없는 깨끗한 템플릿**입니다. 복제 직후 바로 사용 시작하세요.
-> `{UNSET}` 항목은 아직 결정/작성되지 않은 것. `grep -r "{UNSET}" docs/`로 전체 현황 파악 가능.
->
-> **시작 절차**:
-> ```bash
-> /init-project        # 대화형: 한 줄 요약, tech-stack, vision, 페르소나, 컨벤션
-> /new-feature         # 첫 PRD (F-001) 작성
-> /new-adr             # 첫 ADR (예: 기술 스택) 작성
-> /new-domain          # 첫 도메인 폴더 스캐폴딩
-> bash .claude/scripts/lint-docs.sh   # 검증
-> ```
+## 시작 절차
+> base-docs는 **샘플 없는 깨끗한 템플릿**입니다. `grep -r "{UNSET}"`로 현황 파악.
 
-### 템플릿 인프라 (이미 구축됨)
-- [x] CLAUDE.md 루트
-- [x] 폴더별 CLAUDE.md 가이드
-- [x] 99-templates/ 모든 템플릿
-- [x] .claude/ 에이전트·스킬·규칙·자동화 스크립트
-- [x] 자동 동기화 훅 (registry.md, INDEX.md)
-
-### 신규 프로젝트가 채울 항목
-- [ ] 한 줄 요약
-- [ ] 프로젝트 현황 (단계, 스프린트)
-- [ ] tech-stack.md 모든 행 결정 (+ 각 결정마다 ADR)
-- [ ] vision.md 핵심 내용
-- [ ] glossary.md 용어 정의
-- [ ] 코드 컨벤션 확정
-- [ ] 팀/연락처 정보
-- [ ] 첫 도메인 추가
-- [ ] 첫 기능 PRD (F-001) 작성
-- [ ] 첫 ADR 작성
+1. 이 파일의 `{UNSET}` 채우기 — 요약·현황·기술 스택·컨벤션·팀
+2. `docs/0-shared/`의 용어·공통 규약 초안 작성 (필요해질 때 채워도 됨)
+3. `docs/1-feat/_template.md` 복사해 첫 기획 → `2-web` → `3-api`
+4. (코드가 생긴 뒤) 실제 코드 디렉토리 구조와 `docs/<단계>/<슬러그>` → 코드 경로 매핑을 여기에 간단히 메모

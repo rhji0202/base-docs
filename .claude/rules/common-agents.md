@@ -6,8 +6,6 @@ Located in `~/.claude/agents/`:
 
 | Agent                | Purpose                   | When to Use                           |
 | -------------------- | ------------------------- | ------------------------------------- |
-| planner              | Implementation planning   | Complex features, refactoring         |
-| architect            | System design             | Architectural decisions               |
 | tdd-guide            | Test-driven development   | New features, bug fixes               |
 | code-reviewer        | Code review               | After writing code                    |
 | security-reviewer    | Security analysis         | Before commits                        |
@@ -25,45 +23,33 @@ User-invocable via `/<name>`. Located in `~/.claude/skills/`.
 | Skill          | Purpose                                       | When to Use                          |
 | -------------- | --------------------------------------------- | ------------------------------------ |
 | setup          | Bootstrap tom plugin into a project           | First install, base-docs template    |
-| init-project   | Fill all `{UNSET}` markers interactively      | After /setup, before first feature   |
 | update         | Refresh rules/scripts/settings (keeps docs/)  | After plugin upgrade                 |
-| sync-registry  | Sync `registry.md` with actual files          | After Feature or domain change       |
-
-### Document Creation
-
-| Skill        | Purpose                                  | When to Use            |
-| ------------ | ---------------------------------------- | ---------------------- |
-| new-feature  | Create PRD with auto-assigned F-XXX ID   | New feature draft      |
-| new-adr      | Create ADR with auto-assigned ADR-XXX ID | Architecture decision  |
-| new-rfc      | Create RFC with auto-assigned RFC-XXX ID | Change proposal        |
-| new-bug      | Create bug report with auto BUG-XXX ID   | Bug tracking           |
-| new-domain   | Scaffold DDD domain folder + CLAUDE.md   | New business domain    |
 
 ### Planning & Discovery
 
 | Skill           | Purpose                                                   | When to Use                       |
 | --------------- | --------------------------------------------------------- | --------------------------------- |
 | deep-interview  | Socratic clarification of vague requests                  | Goals/scope/constraints unclear   |
-| analyze-docs    | Cross-check a request against existing docs               | Before /plan-feature              |
-| plan-feature    | 6-phase end-to-end plan (PRD → domain → API → schema)     | Feature design                    |
-| plan-impl       | Code implementation plan derived from spec docs           | After /plan-feature, before code  |
+
+> **문서 작성은 스킬이 아니라 템플릿 복사로 합니다.** 기획·프론트·백엔드 문서는
+> 각 폴더의 `_template.md`를 복사해 만듭니다. (옛 PRD/ADR/RFC/도메인/registry 생성
+> 스킬과 에이전트는 이 3단계 구조에서 제거되었습니다.)
 
 ### Recommended Flow
 
 ```
-/setup → /init-project → /deep-interview → /analyze-docs
-       → /plan-feature → /new-feature (PRD) → /new-domain → /new-adr
-       → /plan-impl → implementation → /sync-registry
+/setup → /deep-interview
+       → docs/1-feat/ (기획) → docs/2-web/ (프론트 설계) → docs/3-api/ (백엔드 설계)
+       → implementation
 ```
 
 ## Immediate Agent Usage
 
 No user prompt needed:
 
-1. Complex feature requests - Use **planner** agent
+1. New feature — 먼저 `docs/1-feat/` 기획 문서부터 작성 (코드보다 문서 먼저)
 2. Code just written/modified - Use **code-reviewer** agent
 3. Bug fix or new feature - Use **tdd-guide** agent
-4. Architectural decision - Use **architect** agent
 
 ## Parallel Task Execution
 

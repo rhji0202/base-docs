@@ -40,24 +40,13 @@
 
 ## Security Architecture
 
-상세 보안 모델은 [docs/03-architecture/security.md](docs/03-architecture/security.md)를 참조하세요.
+> 이 프로젝트의 보안 모델은 백엔드 설계 단계에서 정의합니다.
+> 해당 기능의 `docs/3-api/{기능}.md` "보안 / 권한" 섹션을 참조하세요.
 
-### 인증 (Authentication)
-- **방식**: JWT Access Token + Opaque Refresh Token (Hybrid)
-- **Access Token**: RS256, 1시간 유효, Stateless 검증
-- **Refresh Token**: 256bit random, httpOnly Secure Cookie, Redis 저장, 30일 유효
-- **결정 근거**: [ADR-003](docs/07-decisions/ADR-003-auth-strategy.md)
-
-### 데이터 보호
-- **비밀번호 해싱**: Argon2id (MD5, bcrypt 외 사용 금지)
-- **전송 암호화**: TLS 필수 (Plain HTTP 금지)
-- **PII 분류**: 모든 데이터 컬럼에 분류 태그 (PII / Restricted / Confidential / Internal / Public)
-- **Soft Delete**: 물리 삭제 대신 `deleted_at` 컬럼 사용, 탈퇴 후 30일 PII 마스킹, 5년 후 완전 삭제
-
-### 금지 기술
-- MD5 (해싱은 Argon2id만)
-- Plain HTTP (모든 통신 TLS)
-- 환경변수/시크릿 코드 하드코딩
+- **인증/인가 방식**: {UNSET}
+- **비밀번호/시크릿 해싱**: {UNSET}
+- **전송 암호화**: {UNSET}
+- **민감 데이터(PII) 처리**: {UNSET}
 
 ---
 
@@ -89,8 +78,6 @@
 
 ## Incident Response
 
-보안 인시던트 발생 시 [docs/06-operations/incident-response.md](docs/06-operations/incident-response.md)의 절차를 따릅니다.
-
 | 등급 | 정의 | 대응 |
 |---|---|---|
 | P0 | 데이터 유출, 인증 우회 | 즉시 대응, 24시간 내 포스트모템 |
@@ -100,8 +87,5 @@
 ---
 
 ## 관련 문서
-- [Security Model](docs/03-architecture/security.md) — 보안 아키텍처 상세
-- [ADR-003 JWT Auth](docs/07-decisions/ADR-003-auth-strategy.md) — 인증 결정
-- [Users Schema](docs/05-data/schemas/users.md) — 데이터 분류 및 보존 정책
-- [Incident Response](docs/06-operations/incident-response.md) — 장애 대응
-- [Coding Standards](docs/09-guides/coding-standards.md) — 보안 코딩 규칙
+- [보안 코딩 규칙](.claude/rules/common-security.md)
+- 기능별 보안 설계: `docs/3-api/{기능}.md` 의 "보안 / 권한" 섹션
