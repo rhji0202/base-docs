@@ -39,6 +39,8 @@ docs/
 - `3-api/F-001-user-login.md` — API 구현 설계(검증·토큰 발급·잠금 로직). 공통 규약은 `0-shared/conventions.md` 참조.
 - 이후 구현: 인수 조건을 테스트로(RED) → 구현(GREEN).
 
+> 완성된 예시: [`docs/_example/`](../_example/) — F-001-user-login 3단계 완성본
+
 ## 새 문서 만들기
 
 ```bash

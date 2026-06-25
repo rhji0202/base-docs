@@ -1,3 +1,4 @@
+# Claude Code 플러그인 빌드 시 제외 (사용자 프로젝트에 복사되지 않음)
 # Build outputs
 node_modules/
 dist/

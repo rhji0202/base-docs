@@ -14,8 +14,9 @@ updated: {UNSET: YYYY-MM-DD}
 
 ## 기록
 
+> 트리거: ① 같은 실수 2회 반복 ② 새로운 패턴 발견 ③ 예상 못한 장애/버그
+
 | 날짜 | 기능 | 교훈 | 액션 |
 |------|------|------|------|
+| 2026-06-25 | user-login | 401에 "이메일 불일치"만 있고 비번 불일치 구분 없음 | `conventions.md` 에러 코드에 `WRONG_PASSWORD` 추가 |
 | {UNSET} | {UNSET} | {UNSET} | {UNSET} |
-
-> 예: 2026-06-25 | user-login | 401 응답에 "이메일 불일치"만 있고 "비번 불일치" 구분 없음 | conventions.md 에러 코드에 `WRONG_PASSWORD` 추가

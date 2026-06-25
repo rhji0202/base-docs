@@ -9,8 +9,9 @@ updated: {UNSET: YYYY-MM-DD}
 
 ## 1. 응답 포맷 (Envelope)
 > 성공/실패를 일관된 형태로.
+<!-- 예: { "success": true, "data": {...}, "error": null, "meta": {...} } -->
 ```
-{UNSET: 예 — { "success": true, "data": ..., "error": null, "meta": {...} }}
+{UNSET}
 ```
 
 ## 2. 에러 코드 체계
