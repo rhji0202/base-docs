@@ -1,21 +1,13 @@
 {
   "name": "tom",
   "version": "0.6.0",
-  "description": "Documentation-driven planning toolkit: agents, commands, skills, and rules for a 기획 → 프론트엔드 설계 → 백엔드 설계 (planning → frontend → backend) workflow.",
+  "description": "MVP 문서주도개발 툴킷: 기획 → 프론트 → 백엔드 3단계 워크플로우 템플릿",
   "author": {
     "name": "rhji02",
     "email": "dev001@theonemind.kr"
   },
   "homepage": "https://github.com/rhji0202/base-docs",
   "repository": "https://github.com/rhji0202/base-docs",
-  "keywords": [
-    "documentation",
-    "planning",
-    "frontend",
-    "backend",
-    "design"
-  ],
-  "agents": ["./agents/"],
-  "commands": ["./commands/"],
+  "keywords": ["documentation", "planning", "frontend", "backend", "mvp"],
   "skills": ["./skills/"]
 }

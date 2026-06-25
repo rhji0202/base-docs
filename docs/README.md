@@ -43,9 +43,9 @@ docs/
 
 ```bash
 N=$(ls docs/1-feat/F-*.md 2>/dev/null | wc -l)
-cp docs/1-feat/_template.md "docs/1-feat/F-00$((N+1))-{슬러그}.md"
-cp docs/2-web/_template.md "docs/2-web/F-00$((N+1))-{슬러그}.md"
-cp docs/3-api/_template.md "docs/3-api/F-00$((N+1))-{슬러그}.md"
+cp docs/1-feat/_template.md "docs/1-feat/F-$(printf "%03d" $((N+1)))-{슬러그}.md"
+cp docs/2-web/_template.md "docs/2-web/F-$(printf "%03d" $((N+1)))-{슬러그}.md"
+cp docs/3-api/_template.md "docs/3-api/F-$(printf "%03d" $((N+1)))-{슬러그}.md"
 ```
 
 ## 작성 원칙

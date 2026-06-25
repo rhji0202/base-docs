@@ -51,11 +51,11 @@
 ## 새 기능 시작
 
 ```bash
-N=$(ls docs/1-feat/F-*.md 2>/dev/null | wc -l)  # 다음 ID = F-00$((N+1))
+N=$(ls docs/1-feat/F-*.md 2>/dev/null | wc -l)  # 다음 ID = F-$(printf "%03d" $((N+1)))
 SLUG="{슬러그}"  # kebab-case
-cp docs/1-feat/_template.md "docs/1-feat/F-00$((N+1))-${SLUG}.md"
-cp docs/2-web/_template.md "docs/2-web/F-00$((N+1))-${SLUG}.md"
-cp docs/3-api/_template.md "docs/3-api/F-00$((N+1))-${SLUG}.md"
+cp docs/1-feat/_template.md "docs/1-feat/F-$(printf "%03d" $((N+1)))-${SLUG}.md"
+cp docs/2-web/_template.md "docs/2-web/F-$(printf "%03d" $((N+1)))-${SLUG}.md"
+cp docs/3-api/_template.md "docs/3-api/F-$(printf "%03d" $((N+1)))-${SLUG}.md"
 grep -r "{UNSET}" docs/
 ```
 

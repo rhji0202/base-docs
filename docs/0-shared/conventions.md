@@ -23,6 +23,16 @@ updated: {UNSET: YYYY-MM-DD}
 - **토큰 수명/갱신**: {UNSET}
 - **권한 모델**: {UNSET: 예 — 역할(RBAC), 리소스 소유권}
 
+## 4. 일반 요청 흐름
+```mermaid
+sequenceDiagram
+    Client->>API: Request
+    API->>API: 검증
+    API->>DB: 조회/저장
+    DB-->>API: 결과
+    API-->>Client: { success, data, error }
+```
+
 <!-- 필요해지면 추가: 페이지네이션/정렬/필터, 공통 헤더, 멱등성, 레이트리밋. 처음부터 채우지 말 것(YAGNI). -->
 
 <!-- 공유 데이터 모델(여러 기능이 쓰는 핵심 엔티티)도 실제로 둘 이상 기능이 같은 엔티티를 쓰게 될 때
