@@ -26,3 +26,4 @@ updated: {UNSET: YYYY-MM-DD}
 
 ## 다음 단계
 - 백엔드 설계: [3-api/{F-XXX-슬러그}.md](../3-api/{F-XXX-슬러그}.md)
+- 자가개선: 패턴/교훈 → `0-shared/lessons-learned.md`

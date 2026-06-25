@@ -26,3 +26,4 @@ updated: {UNSET: YYYY-MM-DD}
 > `{F-XXX-슬러그}`를 실제 할당받은 ID+슬러그로 바꾸세요.
 - 프론트엔드: [2-web/{F-XXX-슬러그}.md](../2-web/{F-XXX-슬러그}.md)
 - 백엔드: [3-api/{F-XXX-슬러그}.md](../3-api/{F-XXX-슬러그}.md)
+- 자가개선: 패턴/교훈 → `0-shared/lessons-learned.md`

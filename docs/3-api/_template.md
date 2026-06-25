@@ -26,3 +26,6 @@ updated: {UNSET: YYYY-MM-DD}
 | 상황 | 코드 | 처리 |
 |------|------|------|
 | {UNSET} | {UNSET} | {UNSET} |
+
+## 다음 단계
+- 자가개선: 발견한 패턴/교훈 → `../0-shared/lessons-learned.md`
