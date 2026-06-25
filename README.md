@@ -29,7 +29,11 @@
 각 폴더의 `_template.md`를 복사해 시작합니다. 새 기능은 항상 기획부터.
 
 ```bash
-cp docs/1-feat/_template.md docs/1-feat/F-001-user-login.md
+# 다음 ID 확인 후 템플릿 복사
+N=$(ls docs/1-feat/F-*.md 2>/dev/null | wc -l)
+cp docs/1-feat/_template.md "docs/1-feat/F-00$((N+1))-{슬러그}.md"
+cp docs/2-web/_template.md "docs/2-web/F-00$((N+1))-{슬러그}.md"
+cp docs/3-api/_template.md "docs/3-api/F-00$((N+1))-{슬러그}.md"
 ```
 
 ## License

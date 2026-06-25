@@ -5,7 +5,7 @@ updated: {UNSET: YYYY-MM-DD}
 
 # [기능명] 프론트엔드
 
-> 기획: [1-feat/&lt;F-XXX-기능명&gt;.md](../1-feat/<F-XXX-기능명>.md) ← `<F-XXX-기능명>` 치환
+> 기획: [1-feat/{F-XXX-슬러그}.md](../1-feat/{F-XXX-슬러그}.md) ← `{F-XXX-슬러그}` 치환
 
 ## 화면
 | 화면 | 경로 | 핵심 요소 |
@@ -25,4 +25,4 @@ updated: {UNSET: YYYY-MM-DD}
 - **에러:** {UNSET}
 
 ## 다음 단계
-- 백엔드 설계: [3-api/&lt;F-XXX-기능명&gt;.md](../3-api/<F-XXX-기능명>.md)
+- 백엔드 설계: [3-api/{F-XXX-슬러그}.md](../3-api/{F-XXX-슬러그}.md)

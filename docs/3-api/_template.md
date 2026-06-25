@@ -5,8 +5,8 @@ updated: {UNSET: YYYY-MM-DD}
 
 # [기능명] 백엔드
 
-> 기획: [1-feat/&lt;F-XXX-기능명&gt;.md](../1-feat/<F-XXX-기능명>.md) ← `<F-XXX-기능명>` 치환
-> 프론트 API 요구: [2-web/&lt;F-XXX-기능명&gt;.md](../2-web/<F-XXX-기능명>.md)
+> 기획: [1-feat/{F-XXX-슬러그}.md](../1-feat/{F-XXX-슬러그}.md) ← `{F-XXX-슬러그}` 치환
+> 프론트 API 요구: [2-web/{F-XXX-슬러그}.md](../2-web/{F-XXX-슬러그}.md)
 
 ## API 엔드포인트
 > 프론트의 "API 연동" 표를 구현 관점에서 확정.

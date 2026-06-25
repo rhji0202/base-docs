@@ -16,40 +16,42 @@ docs/
 
 ## 워크플로우
 
-하나의 기능은 **같은 슬러그**의 문서로 세 단계를 순서대로 통과하며, 서로 링크로 연결됩니다.
+하나의 기능은 **같은 F-XXX 슬러그**의 문서로 세 단계를 순서대로 통과합니다.
 
 ```
-1-feat/user-login.md   →   2-web/user-login.md   →   3-api/user-login.md
-   (무엇/왜)                     (어떻게 보이나)              (어떻게 동작하나)
+1-feat/F-001-user-login.md  →  2-web/F-001-user-login.md  →  3-api/F-001-user-login.md
+       (무엇/왜)                     (어떻게 보이나)                (어떻게 동작하나)
 ```
 
 1. **기획** — 무엇을, 누구를 위해, 왜 만드는지 정한다. 요구사항과 인수 조건까지.
-2. **프론트엔드 설계** — 기획을 화면·컴포넌트·상태·라우팅으로 옮기고, 백엔드에 필요한 API를 정의한다.
-3. **백엔드 설계** — 프론트가 요구한 API를 데이터 모델·로직·검증으로 구현 설계한다.
+2. **프론트엔드 설계** — 기획을 화면으로 옮기고, 백엔드에 필요한 API를 정의한다.
+3. **백엔드 설계** — 프론트가 요구한 API를 데이터 모델·API·에러 처리로 구현 설계한다.
 
-> **단계 스킵**: 관련 있는 단계만 거친다. UI 없는 기능(크론잡·마이그레이션·CLI 등)은 `2-web`를 생략하고 `1-feat → 3-api`.
-> **경량 모드**: 소규모 기능은 `1-feat/<슬러그>.md` 한 장에 필요한 내용만 인라인으로 적어도 된다.
-> **비-웹 프로젝트**: `2-web`=클라이언트/표면 설계, `3-api`=내부/처리 설계로 읽는다.
+> **단계 스킵**: 관련 있는 단계만. UI 없는 기능은 `2-web` 생략, `1-feat → 3-api`.
+> **경량 모드**: 소규모는 `1-feat/` 한 장에 인라인.
+> **비-웹 프로젝트**: `2-web`=클라이언트/표면 설계, `3-api`=내부/처리 설계.
 
 ### 예시: `user-login` 기능
-- `1-feat/user-login.md` — "이메일+비번 로그인". 인수 조건: 잘못된 비번 시 에러, 5회 실패 시 잠금.
-- `2-web/user-login.md` — 로그인 화면 1개, 폼 상태, 그리고 **필요한 API** `POST /auth/login` 정의.
-- `3-api/user-login.md` — `POST /auth/login` 구현 설계(검증·토큰 발급·잠금 로직). 응답 포맷은 `0-shared/conventions.md` 참조.
+
+- `1-feat/F-001-user-login.md` — "이메일+비번 로그인". 인수 조건: 5회 실패 시 잠금.
+- `2-web/F-001-user-login.md` — 로그인 화면 1개, API `POST /auth/login` 정의.
+- `3-api/F-001-user-login.md` — API 구현 설계(검증·토큰 발급·잠금 로직). 공통 규약은 `0-shared/conventions.md` 참조.
 - 이후 구현: 인수 조건을 테스트로(RED) → 구현(GREEN).
 
 ## 새 문서 만들기
 
-각 폴더의 `_template.md`를 복사해 시작합니다. 파일명은 영문 kebab-case 슬러그로 통일.
-
 ```bash
-cp docs/1-feat/_template.md docs/1-feat/F-002-user-register.md
+N=$(ls docs/1-feat/F-*.md 2>/dev/null | wc -l)
+cp docs/1-feat/_template.md "docs/1-feat/F-00$((N+1))-{슬러그}.md"
+cp docs/2-web/_template.md "docs/2-web/F-00$((N+1))-{슬러그}.md"
+cp docs/3-api/_template.md "docs/3-api/F-00$((N+1))-{슬러그}.md"
 ```
 
 ## 작성 원칙
 
-- **파일명은 `F-XXX-영문-kebab-슬러그`.** 세 폴더에서 같은 인덱스+슬러그를 쓰고 상호 링크로 연결한다 (예: `F-001-user-login.md`).
+- **파일명은 `F-XXX-영문-kebab-슬러그`.** 세 폴더에서 같은 인덱스+슬러그로 상호 링크.
 - **F-XXX 할당은 순차적으로.** `ls docs/1-feat/F-*.md | wc -l`로 다음 ID 확인.
-- **한 파일 = 한 기능/한 주제.** 길어지면 분할한다.
-- **상호 참조는 상대 경로로.** 복사 후 템플릿의 `<F-XXX-기능명>`을 실제 파일명으로 치환한다.
-- **다이어그램은 Mermaid만.** Figma/이미지 링크 금지 (AI가 못 읽음).
-- **미결정 값은 `{UNSET}`으로.** `grep -r "{UNSET}" docs/`로 추적.
+- **한 파일 = 한 기능/한 주제.**
+- **상호 참조는 상대 경로.** 복사 후 `{F-XXX-슬러그}`를 실제 파일명으로 치환.
+- **Mermaid만 사용.** Figma/이미지 링크 금지.
+- **미결정은 `{UNSET}`.** `grep -r "{UNSET}" docs/`로 추적.
