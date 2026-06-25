@@ -11,7 +11,7 @@ updated: {UNSET: YYYY-MM-DD}
 - **{UNSET: 사용자}**: {UNSET: ~하고 싶다. 왜냐하면 ~}
 
 ## 핵심 요구사항 (MVP)
-- [ ] {UNSET: 최소 3~5개, 이게 안 되면 출시 불가}
+- [ ] {UNSET: 1~3개, 이게 안 되면 출시 불가}
 - [ ] {UNSET}
 - [ ] {UNSET}
 

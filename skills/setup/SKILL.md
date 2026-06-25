@@ -2,6 +2,7 @@
 name: setup
 description: base-docs 템플릿을 새 프로젝트에 복사하여 문서주도개발 환경을 부트스트랩한다. 신규 프로젝트 초기화 시 사용.
 user-invocable: true
+disable-model-invocation: true
 allowed-tools: Read Bash Glob
 ---
 
