@@ -8,7 +8,7 @@ updated: {UNSET: YYYY-MM-DD}
 모든 `3-api` 설계가 따르는 전역 규약. 기능 문서는 이 규약을 **링크로 참조**하고, 예외만 따로 명시한다.
 
 ## 1. 응답 포맷 (Envelope)
-> 성공/실패를 일관된 형태로. (`common-patterns.md`의 API Response Format 참조)
+> 성공/실패를 일관된 형태로.
 ```
 {UNSET: 예 — { "success": true, "data": ..., "error": null, "meta": {...} }}
 ```

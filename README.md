@@ -29,12 +29,8 @@
 각 폴더의 `_template.md`를 복사해 시작합니다. 새 기능은 항상 기획부터.
 
 ```bash
-cp docs/1-feat/_template.md docs/1-feat/user-login.md
+cp docs/1-feat/_template.md docs/1-feat/F-001-user-login.md
 ```
 
 ## License
 [라이선스]
-
----
-
-> **참고**: `agents/`, `commands/`, `skills/`, `.claude/`는 **tom 플러그인 자체 산출물**입니다(이 저장소가 플러그인 소스이기도 함). 플러그인으로 설치해 쓰는 경우 무시하세요. 이 저장소를 문서 템플릿으로 직접 복제했다면 삭제해도 무방합니다 — 실제 프로젝트 산출물은 `docs/`와 `CLAUDE.md`입니다.

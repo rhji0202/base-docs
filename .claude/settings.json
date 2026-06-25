@@ -15,26 +15,11 @@
       "Bash(grep *)",
       "Bash(find docs/ *)",
       "Bash(wc *)",
-      "Bash(cp docs/*)",
-      "Bash(.claude/scripts/*)"
+      "Bash(cp docs/*)"
     ],
     "deny": [
       "Bash(rm -rf *)",
       "Bash(sudo *)"
-    ]
-  },
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$CLAUDE_PROJECT_DIR/.claude/scripts/hooks/post-edit-ruff.sh",
-            "timeout": 15
-          }
-        ]
-      }
     ]
   }
 }
