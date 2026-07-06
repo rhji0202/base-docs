@@ -4,31 +4,31 @@
   "evals": [
     {
       "id": 0,
-      "name": "classify-clear-bug-as-auto-fix",
-      "prompt": "You are running the triage-issue skill as a WORKER (TRIAGE_ISSUE_WORKER=1) on this single issue. Read the issue fixture at fixtures/issue-auto-fix.md. Classify it into exactly one of: auto-fix / needs-decision / needs-info / question, per the skill's four-category decision table. DRY RUN: do NOT run any gh command, do NOT label, comment, branch, or open a PR — this is a test. Output only: (1) the category you chose, (2) a one-sentence reason, (3) which file(s) you'd change and why. The fix itself is a one-line label-text change with a clear expected behavior.",
+      "name": "classify-clear-bug-as-doing",
+      "prompt": "You are running the triage-issue-worker skill on this single issue. Read the issue fixture at fixtures/issue-auto-fix.md. Decide whether it's fixable now (→ doing) or blocked on a human (→ pending, with kind decision/info/question), per the skill's decision table. DRY RUN: do NOT run any gh command, do NOT label, comment, branch, or open a PR — this is a test. Output only: (1) the label you chose (and kind if pending), (2) a one-sentence reason, (3) which file(s) you'd change and why. The fix itself is a one-line label-text change with a clear expected behavior.",
       "files": ["fixtures/issue-auto-fix.md"],
-      "expected_output": "Category = auto-fix. The issue is a concrete, in-scope copy/typo bug with a definite expected behavior and no open decision."
+      "expected_output": "Label = doing (fixable now). The issue is a concrete, in-scope copy/typo bug with a definite expected behavior and no open decision."
     },
     {
       "id": 1,
-      "name": "classify-product-call-as-needs-decision",
-      "prompt": "You are running the triage-issue skill as a WORKER (TRIAGE_ISSUE_WORKER=1) on this single issue. Read the issue fixture at fixtures/issue-needs-decision.md. Classify it into exactly one of: auto-fix / needs-decision / needs-info / question. DRY RUN: do NOT run any gh command, do NOT label/comment/branch/PR. Output only: the category, a one-sentence reason, and — if needs-decision — the concrete options you'd put in front of the owner.",
+      "name": "classify-product-call-as-pending-decision",
+      "prompt": "You are running the triage-issue-worker skill on this single issue. Read the issue fixture at fixtures/issue-needs-decision.md. Decide whether it's fixable now (→ doing) or blocked on a human (→ pending, with kind decision/info/question). DRY RUN: do NOT run any gh command, do NOT label/comment/branch/PR. Output only: the label (and kind if pending), a one-sentence reason, and — if pending/decision — the concrete options you'd put in front of the owner.",
       "files": ["fixtures/issue-needs-decision.md"],
-      "expected_output": "Category = needs-decision. The code is clear but the behavior (auto-cancel+refund vs hold-for-restock on out-of-stock) is a product/spec call the owner must make first. Should enumerate the options + tradeoff rather than picking one."
+      "expected_output": "Label = pending, kind = decision. The code is clear but the behavior (auto-cancel+refund vs hold-for-restock on out-of-stock) is a product/spec call the owner must make first. Should enumerate the options + tradeoff rather than picking one."
     },
     {
       "id": 2,
-      "name": "classify-thin-report-as-needs-info",
-      "prompt": "You are running the triage-issue skill as a WORKER (TRIAGE_ISSUE_WORKER=1) on this single issue. Read the issue fixture at fixtures/issue-needs-info.md. Classify it into exactly one of: auto-fix / needs-decision / needs-info / question. DRY RUN: do NOT run any gh command, do NOT label/comment/branch/PR. Output only: the category, a one-sentence reason, and — if needs-info — exactly what missing pieces you'd ask for.",
+      "name": "classify-thin-report-as-pending-info",
+      "prompt": "You are running the triage-issue-worker skill on this single issue. Read the issue fixture at fixtures/issue-needs-info.md. Decide whether it's fixable now (→ doing) or blocked on a human (→ pending, with kind decision/info/question). DRY RUN: do NOT run any gh command, do NOT label/comment/branch/PR. Output only: the label (and kind if pending), a one-sentence reason, and — if pending/info — exactly what missing pieces you'd ask for.",
       "files": ["fixtures/issue-needs-info.md"],
-      "expected_output": "Category = needs-info. The report has no repro steps, no order number, no screen named, and no attached image — nothing concrete to act on. Should ask for the specific missing pieces (repro, order no, screen), not 'more detail' generically."
+      "expected_output": "Label = pending, kind = info. The report has no repro steps, no order number, no screen named, and no attached image — nothing concrete to act on. Should ask for the specific missing pieces (repro, order no, screen), not 'more detail' generically."
     },
     {
       "id": 3,
       "name": "orchestrator-resolves-all-triage-only",
-      "prompt": "A user runs: /triage-issue 백로그 라벨만 정리해줘 (no issue number, and they only want sorting, not fixing). You are the triage-issue ORCHESTRATOR (TRIAGE_ISSUE_WORKER is unset). DRY RUN: do NOT actually spawn claude workers and do NOT run any gh command that writes (no issue edit/comment/pr). You MAY describe the plan. Explain: (1) since no number was given, what you do first; (2) how you decide between sort-only vs also-fix here; (3) the exact worker spawn command shape you'd use, including the env var and which flag you'd thread through to each worker.",
+      "prompt": "A user runs: /triage-issue 백로그 라벨만 정리해줘 (no issue number, and they only want sorting, not fixing). You are the triage-issue ORCHESTRATOR. DRY RUN: do NOT actually spawn claude workers and do NOT run any gh command that writes (no issue edit/comment/pr). You MAY describe the plan. Explain: (1) since no number was given, what you do first; (2) how you decide between sort-only vs also-fix here; (3) the exact worker dispatch shape you'd use, including how you force the worker skill to run and which flag you'd thread through to each worker.",
       "files": [],
-      "expected_output": "Recognizes no number => list open issues first and confirm. Reads '라벨만 정리' as the triage-only sweep intent. Spawn command uses TRIAGE_ISSUE_WORKER=1 claude -p with --triage-only threaded through, run in background per issue, excludes skip-labeled. Does NOT read issue bodies or classify inline as the orchestrator."
+      "expected_output": "Recognizes no number => list open issues first and confirm. Reads '라벨만 정리' as the triage-only sweep intent. Dispatches one triage-issue-worker per issue (subagent, or headless claude -p whose prompt names the worker skill and is forced via --append-system-prompt) with --triage-only threaded through, excludes only skip- and approved-labeled issues. Does NOT read issue bodies or classify inline as the orchestrator."
     }
   ]
 }

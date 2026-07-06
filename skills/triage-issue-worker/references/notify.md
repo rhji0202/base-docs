@@ -9,19 +9,20 @@ stay the same.
 
 Send by default for outcomes that need someone's attention:
 
-- a PR was opened (**auto-fix → fixed**),
+- a PR was opened (**doing → fixed**),
 - a PR was updated on resume (follow-up commits pushed),
-- the issue was labeled **needs-info** or **needs-decision** (someone has to
-  respond before it can move).
+- the issue was labeled **pending** with `kind:info` or `kind:decision` (someone
+  has to respond before it can move).
 
-By default don't notify for `skip`, `question`, or a `fixed` issue you didn't
+By default don't notify for `skip`, a **pending** with `kind:question` (a plain
+question — nobody is blocked waiting on an answer), or a `fixed` issue you didn't
 touch this run (already had its PR, awaiting review — nothing new to report) —
 those need no team action and the ping is just noise.
 This is a default, not a hard rule: if the user explicitly asks you to notify for
 one of these, do it — their instruction wins. For a `--triage-only` sweep, a
-per-issue ping for every `needs-info`/`needs-decision` can be a lot of noise; if
-you're sorting a big backlog, prefer one summary ping (or none) over dozens —
-use judgment and lean quiet unless the user wants each one.
+per-issue ping for every `pending` can be a lot of noise; if you're sorting a big
+backlog, prefer one summary ping (or none) over dozens — use judgment and lean
+quiet unless the user wants each one.
 
 ## Finding the webhook URL
 
@@ -63,7 +64,7 @@ it if the channel changes):
 if [ -n "$NOTIFY_WEBHOOK_URL" ]; then
   SLUG=$(gh repo view --json nameWithOwner -q .nameWithOwner)   # don't hard-code ydj317/redpost
   OUTCOME="수정 PR 생성"          # plain-Korean action taken; fill per the outcome
-  PR_URL="https://github.com/$SLUG/pull/358"   # set to the real PR url, or leave empty for non-fix outcomes
+  PR_URL="https://github.com/$SLUG/pull/358"   # set to the real PR url, or leave empty for pending outcomes
 
   # Build the body with REAL newlines. The newline must live in printf's FORMAT
   # string — printf does NOT expand \n inside a %s argument, so never smuggle a
@@ -87,9 +88,9 @@ fi
 (`ISSUE` from the argument,
 `TMP="$(git rev-parse --show-toplevel)/.triage-issue-tmp/issue-$ISSUE"`, `TITLE`
 with `jq -r .title "$TMP/issue.json"`). Set `OUTCOME` to the plain-Korean action
-taken (예: `수정 PR 생성`, `needs-info 라벨 — 추가 정보 요청`, `needs-decision
-라벨 — 결정 요청`). Set `PR_URL` to the real PR url for a fix, or leave it empty
-for non-fix outcomes (the PR line is then omitted).
+taken (예: `수정 PR 생성`, `추가 정보 요청`, `결정 요청`). Set `PR_URL` to the real
+PR url for a fix, or leave it empty for `pending` outcomes (the PR line is then
+omitted).
 
 > **Why this shape (don't revert it):** an earlier version asked you to fill a
 > `<PR_LINE>` placeholder with the string `\n> [PR 보기](url)` and pass it through
